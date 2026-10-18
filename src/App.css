@@ -61,10 +61,13 @@
   font-weight: 700;
 }
 
-.scaffold__value--ok {
-  color: var(--success);
-}
-
-.scaffold__value--bad {
-  color: var(--yoyo);
+.scaffold__signout {
+  width: 100%;
+  margin-top: 8px;
+  border: 2px solid var(--divider);
+  border-radius: var(--radius-btn);
+  background: var(--card);
+  color: var(--muted);
+  font-weight: 700;
+  cursor: pointer;
 }
