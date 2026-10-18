@@ -1,0 +1,14 @@
+{
+  "app.name": "YK Station",
+  "app.tagline": "Yoyo and Kyle's little station",
+  "scaffold.title": "Under construction",
+  "scaffold.body": "Milestone 0 done: app skeleton, icons and Home Screen settings are ready.",
+  "scaffold.supabase": "Supabase connection",
+  "scaffold.supabase.missing": "Not configured yet",
+  "scaffold.supabase.checking": "Checking…",
+  "scaffold.supabase.ok": "Connected",
+  "scaffold.supabase.error": "Can't connect",
+  "scaffold.mode": "Opened as",
+  "scaffold.mode.standalone": "Home Screen app",
+  "scaffold.mode.browser": "Browser"
+}

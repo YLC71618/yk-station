@@ -1,0 +1,44 @@
+/* Design tokens from SPEC §8. Use these variables; never hard-code colours elsewhere. */
+:root {
+  --bg: #fff8ef;
+  --bg-kyle: #f6f9fe;
+  --card: #ffffff;
+
+  --brown: #8a4b36;
+  --text: #4a2c22;
+  --muted: #8f6f62;
+  --divider: #eed9c8;
+
+  --yoyo: #c2416a;
+  --yoyo-light: #ffe7ec;
+  --yoyo-soft: #f7b6c2;
+  --yoyo-border: #f3c6d2;
+
+  --kyle: #2f63a6;
+  --kyle-light: #e3effc;
+  --kyle-border: #c5dbf3;
+
+  --stat-water: #6fa8e6;
+  --stat-clean: #7cc6a4;
+  --stat-mood: #f38ba0;
+  --stat-energy: #f2b266;
+
+  --success: #3f8a69;
+  --bear-fur: #e8b07a;
+  --bear-muzzle: #ffe7c7;
+  --blanket: #f7b6c2;
+
+  --font-body: 'Noto Sans TC', system-ui, sans-serif;
+  --font-num: 'Fredoka', 'Noto Sans TC', system-ui, sans-serif;
+
+  --radius-card: 22px;
+  --radius-btn: 14px;
+  --radius-pill: 999px;
+  --border-key: 2px solid var(--brown);
+  --touch: 44px;
+
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}

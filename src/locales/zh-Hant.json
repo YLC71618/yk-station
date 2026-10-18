@@ -1,0 +1,14 @@
+{
+  "app.name": "又鍇站",
+  "app.tagline": "又又和鍇鍇的小站",
+  "scaffold.title": "工地施工中",
+  "scaffold.body": "Milestone 0 完成：App 骨架、圖示和主畫面設定都好了。",
+  "scaffold.supabase": "Supabase 連線",
+  "scaffold.supabase.missing": "還沒設定",
+  "scaffold.supabase.checking": "檢查中…",
+  "scaffold.supabase.ok": "連線成功",
+  "scaffold.supabase.error": "連不上",
+  "scaffold.mode": "開啟方式",
+  "scaffold.mode.standalone": "主畫面 App",
+  "scaffold.mode.browser": "瀏覽器"
+}

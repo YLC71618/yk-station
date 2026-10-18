@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>今天吃什麼</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;family=Fredoka:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#C2416A}a:hover{color:#9E2F52}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #FFF8EF; font-family: 'Noto Sans TC', sans-serif; color: #4A2C22; display: flex; flex-direction: column; overflow: hidden">
+
+<div style="display: flex; align-items: center; gap: 12px; padding: 18px 20px 0">
+<a href="Main.dc.html" aria-label="回病房" style="width: 44px; height: 44px; border-radius: 50%; background: #FFFFFF; display: flex; align-items: center; justify-content: center; border: 2px solid #8A4B36; box-sizing: border-box; flex-shrink: 0">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4A2C22" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+</a>
+<span style="font-size: 20px; font-weight: 900">今天吃什麼</span>
+</div>
+
+<div style="margin: 12px 20px 0; background: #FFFFFF; border: 2px solid #8A4B36; border-radius: 20px; padding: 12px; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<label for="want-food" style="font-size: 14px; font-weight: 900">想吃什麼？</label>
+<div style="display: flex; gap: 6px">
+<sc-for list="{{whoChips}}" as="w" hint-placeholder-count="2">
+<button type="button" onClick="{{w.pick}}" aria-pressed="{{w.on}}" style="{{w.style}}">{{w.label}}想吃</button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; gap: 8px">
+<input id="want-food" type="text" value="{{draft}}" onChange="{{onDraft}}" placeholder="例如：番茄牛肉麵" style="flex: 1; min-width: 0; height: 44px; box-sizing: border-box; border: 2px solid #EED9C8; border-radius: 14px; padding: 0 12px; font-family: 'Noto Sans TC', sans-serif; font-size: 15px; color: #4A2C22; background: #FFFCF8">
+<button type="button" onClick="{{addDraft}}" style="height: 44px; padding: 0 16px; border-radius: 14px; border: 2px solid #8A4B36; background: #F7B6C2; color: #4A2C22; font-family: 'Noto Sans TC', sans-serif; font-size: 15px; font-weight: 900; cursor: pointer">添加</button>
+</div>
+</div>
+
+<div style="margin: 12px 20px 0; display: flex; align-items: center; gap: 12px">
+<div style="position: relative; width: 150px; height: 160px; flex-shrink: 0">
+<svg width="22" height="20" viewBox="0 0 28 26" aria-hidden="true" style="position: absolute; left: 64px; top: 0; z-index: 2"><path d="M14 24 L3 4 Q2 1 6 1 L22 1 Q26 1 25 4 Z" fill="#4A2C22"></path></svg>
+<div style="position: absolute; left: 0; top: 10px; width: 150px; height: 150px; border-radius: 50%; border: 4px solid #8A4B36; box-sizing: border-box; overflow: hidden; background: #FFFFFF">
+<div style="position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(#FFD9E1 0deg 60deg, #DCEBFB 60deg 120deg, #FFD9E1 120deg 180deg, #DCEBFB 180deg 240deg, #FFD9E1 240deg 300deg, #DCEBFB 300deg 360deg); transform: rotate({{rot}}deg); transition: transform 3s cubic-bezier(0.15, 0.7, 0.2, 1)">
+<sc-for list="{{slices}}" as="s" hint-placeholder-count="6">
+<span style="{{s.pos}}">{{s.name}}</span>
+</sc-for>
+</div>
+<div style="position: absolute; left: 50%; top: 50%; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%; background: #E8B07A; border: 3px solid #8A4B36; box-sizing: border-box"></div>
+</div>
+</div>
+<div style="flex: 1; display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 13px; color: #8F6F62">不知道吃什麼？</span>
+<sc-if value="{{hasResult}}" hint-placeholder-val="{{ false }}">
+<span style="font-size: 13px; color: #6B4A3E">轉到了</span>
+<span style="font-size: 24px; font-weight: 900; color: #C2416A; line-height: 1.1">{{result}}</span>
+</sc-if>
+<button type="button" onClick="{{spin}}" disabled="{{spinning}}" style="height: 44px; border-radius: 14px; border: 2px solid #8A4B36; background: #FFFFFF; color: #4A2C22; font-family: 'Noto Sans TC', sans-serif; font-size: 14px; font-weight: 900; cursor: pointer">{{spinLabel}}</button>
+<sc-if value="{{hasResult}}" hint-placeholder-val="{{ false }}">
+<button type="button" onClick="{{addResult}}" style="height: 44px; border-radius: 14px; border: 2px solid #8A4B36; background: #F7B6C2; color: #4A2C22; font-family: 'Noto Sans TC', sans-serif; font-size: 14px; font-weight: 900; cursor: pointer">添加給{{who}}</button>
+</sc-if>
+<a href="Settings.dc.html" style="font-size: 12px; font-weight: 700; color: #8A4B36">編輯轉盤選項</a>
+</div>
+</div>
+
+<sc-if value="{{showToast}}" hint-placeholder-val="{{ false }}">
+<div role="status" style="margin: 8px 20px 0; background: #4A2C22; color: #FFFFFF; border-radius: 14px; padding: 8px 14px; font-size: 13px; font-weight: 700">{{toast}}</div>
+</sc-if>
+
+<div style="flex: 1; min-height: 0; overflow-y: auto; margin-top: 12px; padding: 0 20px 20px; display: flex; flex-direction: column; gap: 12px">
+<sc-for list="{{groups}}" as="g" hint-placeholder-count="2">
+<div style="{{g.boxStyle}}">
+<span style="{{g.titleStyle}}">{{g.title}}</span>
+<sc-if value="{{g.empty}}" hint-placeholder-val="{{ false }}">
+<span style="font-size: 13px; color: #8F6F62">還沒有，從上面添加</span>
+</sc-if>
+<sc-for list="{{g.items}}" as="it" hint-placeholder-count="2">
+<div style="display: flex; flex-direction: column; gap: 6px; padding: 8px 0; border-top: 1px dashed #EED9C8">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+<span style="font-size: 16px; font-weight: 900">{{it.name}}</span>
+<button type="button" onClick="{{it.remove}}" aria-label="刪除" style="width: 32px; height: 32px; border-radius: 50%; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8F6F62" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12"></path><path d="M18 6L6 18"></path></svg>
+</button>
+</div>
+<div style="display: flex; gap: 6px">
+<a href="{{it.url}}" target="_blank" rel="noopener" style="flex: 1; height: 40px; border-radius: 12px; border: 2px solid #8A4B36; background: #FFFFFF; color: #4A2C22; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; box-sizing: border-box">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4A2C22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"></path><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"></path></svg>
+看食譜 · {{it.source}}</a>
+<button type="button" onClick="{{it.next}}" style="height: 40px; padding: 0 12px; border-radius: 12px; border: 2px solid #8A4B36; background: #FFF1DE; color: #4A2C22; font-family: 'Noto Sans TC', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer">換一個</button>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+
+<nav aria-label="主選單" style="flex-shrink: 0; margin: 0 14px 14px; position: relative; height: 84px">
+<div style="position: absolute; left: 0; right: 0; bottom: 0; height: 64px; background: #FFFFFF; border: 2px solid #8A4B36; border-radius: 24px; box-sizing: border-box; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); align-items: center; padding: 0 4px">
+<a href="Yoyo.dc.html" style="height: 54px; color: #C2416A; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; font-weight: 700"><span style="width: 26px; height: 26px; border-radius: 50%; overflow: hidden; background: #FFE7EC; border: 1.5px solid #C2416A; box-sizing: border-box; display: block"><svg width="23" height="23" viewBox="18 8 64 64" aria-hidden="true"><g stroke="#8A4B36" stroke-width="2.4"><path d="M20 50 C17 24 33 11 50 11 C67 11 83 24 80 50 C80 62 85 74 81 86 L19 86 C15 74 20 62 20 50 Z" fill="#C47A55"></path><path d="M28.5 45 C28.5 33.5 38.5 28.5 50 28.5 C61.5 28.5 71.5 33.5 71.5 45 C73.5 56 71.5 67 64 73 C60 76.2 55 77.2 50 77.2 C45 77.2 40 76.2 36 73 C28.5 67 26.5 56 28.5 45 Z" fill="#FFEBDD"></path><path d="M26 50 C23 27 36 16 50 16 C64 16 77 27 74 50 C72.5 43.5 69.5 38.5 64 35.5 C61 40.5 55.5 43.5 49 44.5 C51 40.5 51 37.5 50 35.5 C45 40.5 38.5 44 31.5 46 C29 47 27.5 48.5 26 50 Z" fill="#C47A55"></path></g><circle cx="40" cy="56" r="3.4" fill="#4A2C22"></circle><circle cx="60" cy="56" r="3.4" fill="#4A2C22"></circle></svg></span>又又</a>
+<a href="Food.dc.html" aria-current="page" style="height: 54px; background: #FFF1DE; border-radius: 16px; color: #4A2C22; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; font-weight: 900"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4A2C22" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11h18a9 9 0 0 1-18 0z"></path><path d="M8 7c0-1.5 1-2 1-3.5"></path><path d="M12 7c0-1.5 1-2 1-3.5"></path><path d="M16 7c0-1.5 1-2 1-3.5"></path></svg>吃什麼</a>
+<span aria-hidden="true"></span>
+<a href="Shopping.dc.html" style="height: 54px; color: #6B4A3E; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6B4A3E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"></circle><circle cx="18" cy="20" r="1.5"></circle><path d="M2.5 3h3l2.6 12.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.6L22 7H6.2"></path></svg>清單</a>
+<a href="Kyle.dc.html" style="height: 54px; color: #2F63A6; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; font-weight: 700"><span style="width: 26px; height: 26px; border-radius: 50%; overflow: hidden; background: #E3EFFC; border: 1.5px solid #2F63A6; box-sizing: border-box; display: block"><svg width="23" height="23" viewBox="18 8 64 64" aria-hidden="true"><g stroke="#8A4B36" stroke-width="2.4"><path d="M28.5 45 C28.5 33.5 38.5 28.5 50 28.5 C61.5 28.5 71.5 33.5 71.5 45 C73.5 56 71.5 67 64 73 C60 76.2 55 77.2 50 77.2 C45 77.2 40 76.2 36 73 C28.5 67 26.5 56 28.5 45 Z" fill="#FFEBDD"></path><path d="M27 51 C23 30 34 17 50 17 C55 14 60 13.5 63 14.5 C61 15.5 60 16.5 59.5 18 C70 21 77 31 73.5 49 C72 44 70 40.5 67 38 C66 40.5 64 42 61.5 43 C62 40.5 61.5 38 60.5 36.5 C55 39.5 48.5 41.5 42 42.5 C43 40.5 43 38.5 42.5 37 C37 40.5 32 45 29 51 C28.5 50.5 27.8 50.5 27 51 Z" fill="#5A4038"></path></g><g stroke="#6B4A3E" stroke-width="2" fill="none"><circle cx="40.5" cy="56.5" r="7.8"></circle><circle cx="59.5" cy="56.5" r="7.8"></circle></g></svg></span>鍇鍇</a>
+</div>
+<a href="Main.dc.html" aria-label="病房" style="position: absolute; left: 50%; top: 0; margin-left: -40px; width: 80px; height: 80px; border-radius: 50%; background: #F7B6C2; border: 3px solid #8A4B36; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; color: #4A2C22; text-decoration: none; font-size: 12px; font-weight: 900"><svg width="38" height="34" viewBox="0 0 60 54" aria-hidden="true"><g stroke="#8A4B36" stroke-width="2.4"><circle cx="13" cy="13" r="8" fill="#E8B07A"></circle><circle cx="47" cy="13" r="8" fill="#E8B07A"></circle><circle cx="30" cy="30" r="22" fill="#E8B07A"></circle></g><circle cx="13" cy="13" r="4" fill="#F7C9C0"></circle><circle cx="47" cy="13" r="4" fill="#F7C9C0"></circle><ellipse cx="30" cy="38" rx="7.5" ry="5.5" fill="#FFE7C7"></ellipse><ellipse cx="30" cy="35.5" rx="2.4" ry="1.7" fill="#5A3A2E"></ellipse><circle cx="21" cy="30" r="2.4" fill="#4A2C22"></circle><circle cx="39" cy="30" r="2.4" fill="#4A2C22"></circle></svg>病房</a>
+</nav>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      who: '又又', draft: '', rot: 0, spinning: false, result: '', nextId: 3, toast: '',
+      items: [
+        { id: 1, name: '番茄牛肉麵', who: '又又', src: 0 },
+        { id: 2, name: '咖哩飯', who: '鍇鍇', src: 0 }
+      ]
+    };
+  }
+  componentWillUnmount() { clearTimeout(this._t); clearTimeout(this._s); }
+  say(msg) {
+    this.setState({ toast: msg });
+    clearTimeout(this._t);
+    this._t = setTimeout(() => this.setState({ toast: '' }), 2200);
+  }
+  add(name) {
+    const v = (name || '').trim();
+    if (!v) return;
+    const id = this.state.nextId;
+    this.setState({ items: this.state.items.concat([{ id: id, name: v, who: this.state.who, src: 0 }]), nextId: id + 1, draft: '' });
+    this.say('已添加到「' + this.state.who + '想吃」');
+  }
+  renderVals() {
+    const st = this.state;
+    const opts = ['拉麵', '咖哩飯', '火鍋', '炸雞', '壽司', '牛肉麵'];
+    const sources = [
+      { name: 'YouTube', url: (q) => 'https://www.youtube.com/results?search_query=' + encodeURIComponent(q + ' 食譜') },
+      { name: '愛料理', url: (q) => 'https://icook.tw/search/' + encodeURIComponent(q) + '/' },
+      { name: 'Google', url: (q) => 'https://www.google.com/search?q=' + encodeURIComponent(q + ' 食譜') }
+    ];
+    const slices = opts.map((name, i) => ({
+      name: name,
+      pos: 'position: absolute; left: 50%; top: 50%; width: 56px; height: 18px; margin: -9px 0 0 -28px; text-align: center; font-size: 12px; font-weight: 900; color: #4A2C22; transform: rotate(' + (i * 60 + 30) + 'deg) translateY(-48px)'
+    }));
+    const spin = () => {
+      if (this.state.spinning) return;
+      const i = Math.floor(Math.random() * opts.length);
+      const cur = this.state.rot;
+      const target = (360 - (i * 60 + 30)) % 360;
+      this.setState({ rot: cur - (cur % 360) + 1800 + target, spinning: true, result: '' });
+      clearTimeout(this._s);
+      this._s = setTimeout(() => this.setState({ spinning: false, result: opts[i] }), 3100);
+    };
+    const chip = (on, color) => 'height: 30px; padding: 0 10px; border-radius: 999px; font-family: \'Noto Sans TC\', sans-serif; font-size: 12px; font-weight: 700; cursor: pointer; border: 2px solid ' + color + '; background: ' + (on ? color : '#FFFFFF') + '; color: ' + (on ? '#FFFFFF' : color);
+    const colorOf = (w) => (w === '又又' ? '#C2416A' : '#2F63A6');
+    const group = (w) => {
+      const its = st.items.filter((x) => x.who === w).map((x) => {
+        const s = sources[x.src % sources.length];
+        return {
+          name: x.name,
+          source: s.name,
+          url: s.url(x.name),
+          next: () => this.setState({ items: this.state.items.map((y) => (y.id === x.id ? Object.assign({}, y, { src: y.src + 1 }) : y)) }),
+          remove: () => this.setState({ items: this.state.items.filter((y) => y.id !== x.id) })
+        };
+      });
+      return {
+        title: w + '想吃',
+        items: its,
+        empty: its.length === 0,
+        boxStyle: 'background: #FFFFFF; border: 2px solid ' + (w === '又又' ? '#F3C6D2' : '#C5DBF3') + '; border-radius: 20px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px',
+        titleStyle: 'font-size: 15px; font-weight: 900; color: ' + colorOf(w)
+      };
+    };
+    return {
+      whoChips: ['又又', '鍇鍇'].map((w) => ({ label: w, on: st.who === w, style: chip(st.who === w, colorOf(w)), pick: () => this.setState({ who: w }) })),
+      who: st.who,
+      draft: st.draft,
+      onDraft: (e) => this.setState({ draft: e.target.value }),
+      addDraft: () => this.add(st.draft),
+      slices: slices,
+      rot: st.rot,
+      spin: spin,
+      spinning: st.spinning,
+      spinLabel: st.spinning ? '轉轉轉…' : (st.result ? '再轉一次' : '轉轉看'),
+      hasResult: !!st.result,
+      result: st.result,
+      addResult: () => this.add(st.result),
+      groups: [group('又又'), group('鍇鍇')],
+      showToast: !!st.toast,
+      toast: st.toast
+    };
+  }
+}
+</script>
+</body>
+</html>

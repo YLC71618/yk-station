@@ -1,0 +1,70 @@
+.scaffold {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: calc(24px + var(--safe-top)) calc(24px + var(--safe-right)) calc(24px + var(--safe-bottom))
+    calc(24px + var(--safe-left));
+  text-align: center;
+}
+
+.scaffold__icon {
+  width: 120px;
+  height: 120px;
+  border-radius: 28px;
+  border: var(--border-key);
+}
+
+.scaffold__name {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--brown);
+}
+
+.scaffold__tagline {
+  margin: 0;
+  color: var(--muted);
+}
+
+.scaffold__card {
+  width: 100%;
+  max-width: 342px;
+  background: var(--card);
+  border: var(--border-key);
+  border-radius: var(--radius-card);
+  padding: 20px;
+  text-align: left;
+}
+
+.scaffold__card h2 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  color: var(--yoyo);
+}
+
+.scaffold__card p {
+  margin: 0 0 12px;
+  line-height: 1.6;
+}
+
+.scaffold__row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-top: 2px dashed var(--divider);
+}
+
+.scaffold__value {
+  font-weight: 700;
+}
+
+.scaffold__value--ok {
+  color: var(--success);
+}
+
+.scaffold__value--bad {
+  color: var(--yoyo);
+}
