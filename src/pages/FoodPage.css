@@ -1,0 +1,197 @@
+.food-add {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 20px;
+}
+
+.food-add__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.food-add__label {
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.food-add__row {
+  display: flex;
+  gap: 8px;
+}
+
+.text-input {
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  padding: 0 12px;
+  border: 2px solid var(--divider);
+  border-radius: 14px;
+  background: var(--input-bg);
+  color: var(--text);
+  font: inherit;
+  font-size: 16px;
+}
+
+.text-input:focus {
+  outline: none;
+  border-color: var(--yoyo-soft);
+}
+
+.pink-button,
+.white-button {
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 14px;
+  border: var(--border-key);
+  background: var(--yoyo-soft);
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.white-button {
+  background: var(--card);
+  font-size: 14px;
+}
+
+.pink-button:disabled,
+.white-button:disabled {
+  opacity: 0.5;
+}
+
+.food-spin {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.food-spin__side {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.food-spin__got {
+  font-size: 13px;
+  color: var(--nav-ink);
+}
+
+.food-spin__result {
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--yoyo);
+  overflow-wrap: anywhere;
+}
+
+.food-spin__edit {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--brown);
+}
+
+.wish {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  border-radius: 20px;
+  border-color: var(--yoyo-border);
+}
+
+.wish--kyle {
+  border-color: var(--kyle-border);
+}
+
+.wish__title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 900;
+  color: var(--yoyo);
+}
+
+.wish--kyle .wish__title {
+  color: var(--kyle);
+}
+
+.wish__item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 0;
+  border-top: 1px dashed var(--divider);
+}
+
+.wish__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.wish__name {
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.wish__remove {
+  width: 36px;
+  height: 36px;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.wish__actions {
+  display: flex;
+  gap: 6px;
+}
+
+.wish__recipe,
+.wish__next,
+.wish__cook {
+  min-height: 40px;
+  height: 40px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: 12px;
+  border: var(--border-key);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.wish__recipe {
+  flex: 1;
+  min-width: 0;
+  background: var(--card);
+}
+
+.wish__next {
+  background: var(--nav-active);
+}
+
+.wish__cook {
+  background: var(--good-bg);
+  color: var(--good-ink);
+  font-weight: 900;
+}

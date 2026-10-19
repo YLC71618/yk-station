@@ -1,0 +1,27 @@
+.who-chips {
+  display: flex;
+  gap: 6px;
+}
+
+.who-chip {
+  --c: var(--yoyo);
+  min-height: 30px;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--c);
+  background: var(--card);
+  color: var(--c);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.who-chip--kyle {
+  --c: var(--kyle);
+}
+
+.who-chip.is-on {
+  background: var(--c);
+  color: var(--card);
+}

@@ -13,16 +13,6 @@ function Soon({ n }: { n: number }) {
   )
 }
 
-export function FoodPage() {
-  const { t } = useI18n()
-  return (
-    <>
-      <PageHeader title={t('food.title')} />
-      <Soon n={7} />
-    </>
-  )
-}
-
 export function ListsPage() {
   const { t } = useI18n()
   return (

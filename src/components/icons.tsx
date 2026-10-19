@@ -76,6 +76,24 @@ export function CheckCircleIcon({ size = 56 }: IconProps) {
   )
 }
 
+export function BookIcon({ size = 16 }: IconProps) {
+  return (
+    <svg {...base} width={size} height={size}>
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z" />
+      <path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5" />
+    </svg>
+  )
+}
+
+export function CloseIcon({ size = 16 }: IconProps) {
+  return (
+    <svg {...base} width={size} height={size} strokeWidth={2.4}>
+      <path d="M6 6l12 12" />
+      <path d="M18 6L6 18" />
+    </svg>
+  )
+}
+
 export function CartIcon({ size = 24 }: IconProps) {
   return (
     <svg {...base} width={size} height={size}>
