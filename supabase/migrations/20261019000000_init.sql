@@ -1,5 +1,6 @@
 -- YK Station · Milestone 1: schema, RLS, allowed_users gate, profiles (SPEC §3, §4)
--- Run once in Supabase → SQL Editor. Emails are NOT in this file; add them separately.
+-- Applied via SQL Editor before the CLI was set up. Emails are NOT in this file;
+-- they live only in the allowed_users table.
 
 -- ───────────────────────── Roles ─────────────────────────
 create domain public.member_role as text check (value in ('yoyo', 'kyle'));
