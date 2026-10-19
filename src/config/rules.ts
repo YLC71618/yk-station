@@ -27,7 +27,7 @@ export const water = {
 } as const
 
 export const chores = {
-  shaveIntervalDays: 3,
+  shaveIntervalDays: 2,
   nailsIntervalDays: 9,
   reminderHour: 9,
 } as const
