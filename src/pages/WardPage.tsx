@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import PageHeader from '../shell/PageHeader'
 import Avatar from '../components/Avatar'
 import { BearInBed } from '../components/Bear'
-import { GearIcon } from '../components/icons'
+import { CalendarIcon, GearIcon } from '../components/icons'
 import { Toast, useToast } from '../components/Toast'
 import { useAuth } from '../auth/AuthProvider'
 import { useI18n, type MessageKey, type TFunction } from '../i18n'
@@ -83,9 +83,14 @@ export default function WardPage() {
         kicker="YK STATION"
         title={t('ward.title')}
         action={
-          <Link to="/settings" className="round-button" aria-label={t('settings.title')}>
-            <GearIcon />
-          </Link>
+          <div className="ward__actions">
+            <Link to="/calendar" className="round-button" aria-label={t('calendar.title')}>
+              <CalendarIcon />
+            </Link>
+            <Link to="/settings" className="round-button" aria-label={t('settings.title')}>
+              <GearIcon />
+            </Link>
+          </div>
         }
       />
       <div className="page-body ward">

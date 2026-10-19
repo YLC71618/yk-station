@@ -7,6 +7,7 @@ import { I18nProvider, useI18n } from './i18n'
 import AppShell from './shell/AppShell'
 import WardPage from './pages/WardPage'
 import SettingsPage from './pages/SettingsPage'
+import CalendarPage from './pages/CalendarPage'
 import YoyoPage from './pages/YoyoPage'
 import KylePage from './pages/KylePage'
 import FoodPage from './pages/FoodPage'
@@ -70,6 +71,7 @@ function Gate() {
           <Route path="food" element={<FoodPage />} />
           <Route path="lists" element={<ListsPage />} />
           <Route path="settings" element={<SettingsPage />} />
+          <Route path="calendar" element={<CalendarPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>

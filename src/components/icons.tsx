@@ -95,6 +95,24 @@ export function PlusIcon({ size = 20 }: IconProps) {
   )
 }
 
+export function CalendarIcon({ size = 22 }: IconProps) {
+  return (
+    <svg {...base} width={size} height={size}>
+      <rect x="3" y="5" width="18" height="16" rx="3" />
+      <path d="M3 10h18" />
+      <path d="M8 3v4M16 3v4" />
+    </svg>
+  )
+}
+
+export function ChevronIcon({ size = 20, dir = 'right' }: IconProps & { dir?: 'left' | 'right' }) {
+  return (
+    <svg {...base} width={size} height={size} strokeWidth={2.4}>
+      <path d={dir === 'left' ? 'M15 18l-6-6 6-6' : 'M9 18l6-6-6-6'} />
+    </svg>
+  )
+}
+
 export function CartIcon({ size = 24 }: IconProps) {
   return (
     <svg {...base} width={size} height={size}>
