@@ -8,7 +8,7 @@ import './SettingsCards.css'
 /** Edit the spinner's standing options (wish-list dishes join the wheel automatically). */
 export default function SpinnerOptionsCard() {
   const { t } = useI18n()
-  const { options, addOption, removeOption } = useFood()
+  const { options, addOption, removeOption, clearOptions } = useFood()
   const [draft, setDraft] = useState('')
   const [note, setNote] = useState('')
   const full = options.length >= SPINNER_MAX_OPTIONS
@@ -58,6 +58,15 @@ export default function SpinnerOptionsCard() {
         </button>
       </form>
       {note && <p className="muted-small">{note}</p>}
+      {options.length > 0 && (
+        <button
+          type="button"
+          className="spinner-opts__clear"
+          onClick={() => window.confirm(t('spinner.clearConfirm', { n: options.length })) && clearOptions()}
+        >
+          {t('spinner.clear')}
+        </button>
+      )}
     </section>
   )
 }

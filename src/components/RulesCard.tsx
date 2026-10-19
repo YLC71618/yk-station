@@ -15,7 +15,6 @@ export default function RulesCard() {
     { what: t('rules.earn.hand'), amount: plus(coins.handScorePlus) },
     { what: t('rules.earn.streak', { n: coins.perfectStreakDays }), amount: plus(coins.perfectStreak) },
     { what: t('rules.earn.cook'), amount: t('rules.each', { n: coins.cookedWish }) },
-    { what: t('rules.earn.shopping'), amount: plus(coins.shoppingListCleared) },
   ]
 
   const lose: Row[] = [

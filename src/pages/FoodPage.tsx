@@ -2,7 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import PageHeader from '../shell/PageHeader'
 import WhoChips from '../components/WhoChips'
-import { Wheel, useSpinner } from '../components/Spinner'
+import { ClawBox, useClaw } from '../components/ClawMachine'
 import { Toast, useToast } from '../components/Toast'
 import { BookIcon, CloseIcon } from '../components/icons'
 import { useI18n } from '../i18n'
@@ -20,7 +20,7 @@ export default function FoodPage() {
   const toast = useToast()
   const [who, setWho] = useState<Role>(profile!.role)
   const [draft, setDraft] = useState('')
-  const spinner = useSpinner(food.spinnerNames)
+  const claw = useClaw(food.spinnerNames)
   const name = (r: Role) => t(r === 'yoyo' ? 'role.yoyo' : 'role.kyle')
 
   async function add(dish: string) {
@@ -76,24 +76,26 @@ export default function FoodPage() {
           </div>
         </form>
 
-        <div className="food-spin">
-          <Wheel slices={spinner.slices} rot={spinner.rot} />
-          <div className="food-spin__side">
-            <span className="muted-small">{t('food.unsure')}</span>
-            {spinner.result && (
-              <>
-                <span className="food-spin__got">{t('food.landed')}</span>
-                <strong className="food-spin__result">{spinner.result}</strong>
-              </>
-            )}
-            <button type="button" className="white-button" onClick={spinner.spin} disabled={spinner.spinning || !spinner.slices.length}>
-              {t(spinner.spinning ? 'food.spinning' : spinner.result ? 'food.spinAgain' : 'food.spin')}
+        <section className="food-claw">
+          <span className="muted-small">{t('food.unsure')}</span>
+          <ClawBox claw={claw} />
+          {claw.result && (
+            <p className="food-claw__result">
+              <span>{t('food.landed')}</span>
+              <strong>{claw.result}</strong>
+            </p>
+          )}
+          <div className="food-claw__buttons">
+            <button type="button" className="pink-button" onClick={claw.grab} disabled={claw.busy || !claw.items.length}>
+              {t(claw.busy ? 'food.spinning' : claw.result ? 'food.spinAgain' : 'food.spin')}
             </button>
-            {spinner.result && (
-              <button type="button" className="pink-button" onClick={() => add(spinner.result)}>
+            {claw.result && (
+              <button type="button" className="white-button" onClick={() => add(claw.result)}>
                 {t('food.addFor', { who: name(who) })}
               </button>
             )}
+          </div>
+          <div className="food-claw__extra">
             <button type="button" className="white-button food-spin__idea" onClick={suggest}>
               {t('food.suggest')}
             </button>
@@ -101,7 +103,7 @@ export default function FoodPage() {
               {t('food.editOptions')}
             </Link>
           </div>
-        </div>
+        </section>
 
         <Toast message={toast.message} />
 

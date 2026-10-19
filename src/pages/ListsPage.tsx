@@ -1,11 +1,10 @@
 import { useState, type FormEvent } from 'react'
 import PageHeader from '../shell/PageHeader'
 import WhoChips from '../components/WhoChips'
-import { Toast, useToast } from '../components/Toast'
 import { PlusIcon } from '../components/icons'
 import { useI18n } from '../i18n'
 import { useAuth } from '../auth/AuthProvider'
-import { useShopping, type Item } from '../lib/useShopping'
+import { useShopping } from '../lib/useShopping'
 import type { Role } from '../lib/supabase'
 import './ListsPage.css'
 
@@ -13,7 +12,6 @@ export default function ListsPage() {
   const { t } = useI18n()
   const { profile } = useAuth()
   const { items, add, tick, clearDone } = useShopping()
-  const toast = useToast()
   const [by, setBy] = useState<Role>(profile!.role)
   const [draft, setDraft] = useState('')
   const name = (r: Role) => t(r === 'yoyo' ? 'role.yoyo' : 'role.kyle')
@@ -25,11 +23,6 @@ export default function ListsPage() {
     if (!v) return
     setDraft('')
     await add(v, by)
-  }
-
-  async function onTick(item: Item, checked: boolean) {
-    const res = await tick(item, checked)
-    if (res.cleared) toast.show(t('lists.cleared', { coins: res.coins ?? 0 }))
   }
 
   return (
@@ -67,7 +60,7 @@ export default function ListsPage() {
         <ul className="items">
           {items.map((it) => (
             <li key={it.id} className="item">
-              <input id={`item-${it.id}`} type="checkbox" checked={it.done} onChange={(e) => onTick(it, e.target.checked)} />
+              <input id={`item-${it.id}`} type="checkbox" checked={it.done} onChange={(e) => tick(it, e.target.checked)} />
               <label htmlFor={`item-${it.id}`} className={it.done ? 'is-done' : ''}>
                 {it.name}
               </label>
@@ -77,7 +70,6 @@ export default function ListsPage() {
           {!items.length && <li className="items__empty">{t('lists.empty')}</li>}
         </ul>
 
-        <Toast message={toast.message} />
 
         {done > 0 && (
           <button type="button" className="clear-done" onClick={clearDone}>

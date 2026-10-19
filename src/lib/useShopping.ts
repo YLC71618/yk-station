@@ -35,9 +35,8 @@ export function useShopping() {
 
   const tick = useCallback(async (item: Item, done: boolean) => {
     setItems((all) => all.map((x) => (x.id === item.id ? { ...x, done } : x)))
-    const { data, error } = await supabase!.rpc('tick_item', { p_id: item.id, p_done: done })
+    const { error } = await supabase!.rpc('tick_item', { p_id: item.id, p_done: done })
     if (error) throw error
-    return data as { ok: boolean; cleared?: boolean; coins?: number }
   }, [])
 
   const clearDone = useCallback(async () => {

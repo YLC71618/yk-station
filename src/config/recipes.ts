@@ -5,8 +5,8 @@ export const recipeSources = [
   { name: 'Google', url: (q: string) => `https://www.google.com/search?q=${encodeURIComponent(`${q} 食譜`)}` },
 ] as const
 
-/** Most slices the spinner draws before labels get unreadable. */
-export const SPINNER_MAX_SLICES = 12
+/** Most plushes drawn in the claw machine (options + wishes); more → a random subset. */
+export const CLAW_MAX_ITEMS = 30
 
-/** Most standing spinner options. Mirrored by the wheel_options trigger in the database. */
-export const SPINNER_MAX_OPTIONS = 12
+/** Most standing claw machine options. Mirrored by the wheel_options trigger in the database. */
+export const SPINNER_MAX_OPTIONS = 24

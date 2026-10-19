@@ -201,7 +201,6 @@ function EarnTips({ missing, role }: { missing: number; role: Role }) {
         ] as [MessageKey, number][])
       : []),
     ['earn.cook', coins.cookedWish],
-    ['earn.shopping', coins.shoppingListCleared],
     ['earn.streak', coins.perfectStreak],
   ]
   return (

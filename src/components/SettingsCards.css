@@ -132,6 +132,19 @@
   gap: 8px;
 }
 
+.spinner-opts__clear {
+  align-self: flex-start;
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--yoyo);
+  background: var(--card);
+  color: var(--yoyo);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;

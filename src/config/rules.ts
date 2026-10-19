@@ -11,7 +11,6 @@ export const coins = {
   perfectStreak: 30,
   perfectStreakDays: 7,
   cookedWish: 10,
-  shoppingListCleared: 5,
 } as const
 
 export const water = {

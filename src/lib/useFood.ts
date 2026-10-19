@@ -87,5 +87,11 @@ export function useFood() {
     [load],
   )
 
-  return { wishes, options, spinnerNames, addWish, removeWish, nextSource, cook, addOption, removeOption }
+  const clearOptions = useCallback(async () => {
+    // PostgREST needs a filter on delete; this one matches every row.
+    await supabase!.from('wheel_options').delete().not('id', 'is', null)
+    await load()
+  }, [load])
+
+  return { wishes, options, spinnerNames, addWish, removeWish, nextSource, cook, addOption, removeOption, clearOptions }
 }
