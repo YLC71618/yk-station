@@ -20,6 +20,18 @@
   color: var(--card);
 }
 
+.request-card--optional {
+  background: var(--success);
+}
+
+.request-card--optional .request-card__go {
+  color: var(--success);
+}
+
+.request-card--optional p {
+  color: var(--good-bg);
+}
+
 .request-card--rejected {
   background: var(--yoyo);
 }

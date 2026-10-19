@@ -4,6 +4,8 @@ export const TIME_ZONE = 'Europe/London'
 
 export const coins = {
   waterCupApproved: 5,
+  /** Extra for each approved cup after Yoyo's daily goal is already met. */
+  extraCupBonus: 5,
   choreOnTime: 5,
   handScorePlus: 2,
   perfectStreak: 30,

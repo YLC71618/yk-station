@@ -54,9 +54,30 @@ export function CupsCard({ owner, me, title }: { owner: Role; me: Role; title: s
 /** Yoyo's in-page request card (the full-screen one appears when the app opens). */
 export function RequestCard() {
   const { t } = useI18n()
-  const { request, snoozesLeft, snooze, openCamera } = useWaterContext()
+  const { request, snoozesLeft, snooze, decline, openCamera, goalMet } = useWaterContext()
   if (!request) return null
   const snoozed = request.snoozed_until && new Date(request.snoozed_until).getTime() > Date.now()
+
+  if (goalMet) {
+    return (
+      <section className="request-card request-card--optional">
+        <div className="request-card__head">
+          <BellIcon />
+          <h2>{t('water.request.optionalTitle')}</h2>
+        </div>
+        <p>{t('water.request.optionalHint', { goal: water.dailyGoalYoyo })}</p>
+        <div className="request-card__actions">
+          <button type="button" className="request-card__go" onClick={openCamera}>
+            {t('water.request.accept', { coins: coins.waterCupApproved + coins.extraCupBonus })}
+          </button>
+          <button type="button" className="request-card__snooze" onClick={() => decline()}>
+            {t('water.request.decline')}
+          </button>
+        </div>
+      </section>
+    )
+  }
+
   return (
     <section className="request-card">
       <div className="request-card__head">

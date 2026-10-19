@@ -5,9 +5,10 @@ import { useAuth } from '../auth/AuthProvider'
 import { useI18n } from '../i18n'
 import { useWater } from '../lib/useWater'
 import { setBadge, syncPush } from '../lib/push'
+import { coins, water as waterRules } from '../config/rules'
 import './WaterProvider.css'
 
-type WaterState = ReturnType<typeof useWater> & { openCamera: () => void }
+type WaterState = ReturnType<typeof useWater> & { openCamera: () => void; goalMet: boolean }
 
 const WaterContext = createContext<WaterState | null>(null)
 
@@ -28,9 +29,13 @@ export function WaterProvider({ children }: { children: ReactNode }) {
     return () => window.clearTimeout(id)
   }, [snoozedUntil])
 
-  // My latest cup today was sent back → must retake before doing anything else.
+  // Past Yoyo's daily goal, extra cups (and Kyle's asks) are optional and earn a bonus.
+  const goalMet = water.count('yoyo').approved >= waterRules.dailyGoalYoyo
+
+  // My latest cup today was sent back → must retake before doing anything else (not for optional extra cups).
   const mine = water.today.filter((l) => l.role === me)
-  const mustRetake = mine.length > 0 && mine[mine.length - 1].status === 'rejected' && !cameraOpen
+  const extraCup = me === 'yoyo' && goalMet
+  const mustRetake = mine.length > 0 && mine[mine.length - 1].status === 'rejected' && !cameraOpen && !extraCup
   const reviewer = t(me === 'yoyo' ? 'role.kyle' : 'role.yoyo')
 
   const showRequest = me === 'yoyo' && !!water.request && snoozedUntil <= now && !cameraOpen && !mustRetake
@@ -51,23 +56,29 @@ export function WaterProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <WaterContext.Provider value={{ ...water, openCamera: () => setCameraOpen(true) }}>
+    <WaterContext.Provider value={{ ...water, goalMet, openCamera: () => setCameraOpen(true) }}>
       {children}
 
       {showRequest && (
         <div className="request-overlay" role="alertdialog" aria-modal="true" aria-labelledby="request-title">
-          <div className="request-card request-card--big">
+          <div className={`request-card request-card--big${goalMet ? ' request-card--optional' : ''}`}>
             <div className="request-card__head">
               <BellIcon size={28} />
-              <h2 id="request-title">{t('water.request.title')}</h2>
+              <h2 id="request-title">{t(goalMet ? 'water.request.optionalTitle' : 'water.request.title')}</h2>
             </div>
-            <p>{t('water.request.hint')}</p>
+            <p>{goalMet ? t('water.request.optionalHint', { goal: waterRules.dailyGoalYoyo }) : t('water.request.hint')}</p>
             <button type="button" className="request-card__go" onClick={() => setCameraOpen(true)}>
-              {t('water.request.go')}
+              {goalMet ? t('water.request.accept', { coins: coins.waterCupApproved + coins.extraCupBonus }) : t('water.request.go')}
             </button>
-            <button type="button" className="request-card__snooze" onClick={snooze} disabled={water.snoozesLeft <= 0}>
-              {water.snoozesLeft > 0 ? t('water.request.snooze', { n: water.snoozesLeft }) : t('water.request.noSnooze')}
-            </button>
+            {goalMet ? (
+              <button type="button" className="request-card__snooze" onClick={() => water.decline()}>
+                {t('water.request.decline')}
+              </button>
+            ) : (
+              <button type="button" className="request-card__snooze" onClick={snooze} disabled={water.snoozesLeft <= 0}>
+                {water.snoozesLeft > 0 ? t('water.request.snooze', { n: water.snoozesLeft }) : t('water.request.noSnooze')}
+              </button>
+            )}
           </div>
         </div>
       )}
@@ -91,6 +102,7 @@ export function WaterProvider({ children }: { children: ReactNode }) {
         <WaterCamera
           reviewerName={reviewer}
           feedsBear={me === 'yoyo'}
+          bonus={extraCup ? coins.extraCupBonus : 0}
           onSubmit={(full, empty) => water.submit(me, full, empty)}
           onClose={() => setCameraOpen(false)}
         />

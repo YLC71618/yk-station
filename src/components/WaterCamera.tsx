@@ -15,10 +15,12 @@ type Props = {
   onClose: () => void
   /** Only Yoyo's cups feed the bear. */
   feedsBear: boolean
+  /** Extra coins this cup earns (Yoyo past her daily goal). */
+  bonus?: number
 }
 
 /** Live camera only (getUserMedia): no file input and no photo library, per SPEC §5. */
-export default function WaterCamera({ reviewerName, onSubmit, onClose, feedsBear }: Props) {
+export default function WaterCamera({ reviewerName, onSubmit, onClose, feedsBear, bonus = 0 }: Props) {
   const { t } = useI18n()
   const videoRef = useRef<HTMLVideoElement>(null)
   const streamRef = useRef<MediaStream | null>(null)
@@ -87,9 +89,10 @@ export default function WaterCamera({ reviewerName, onSubmit, onClose, feedsBear
             <CheckCircleIcon />
             <strong>{t('camera.sent', { who: reviewerName })}</strong>
             <span>
-              {t(feedsBear ? 'camera.sentHintBear' : 'camera.sentHint', {
+              {t(bonus ? 'camera.sentHintBonus' : feedsBear ? 'camera.sentHintBear' : 'camera.sentHint', {
                 coins: coins.waterCupApproved,
                 water: bear.water.approvedCup,
+                bonus,
               })}
             </span>
           </div>

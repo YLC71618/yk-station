@@ -21,6 +21,8 @@
     "water_submitted": ["{who} drank some water", "Check the photos and approve or send back"],
     "water_approved": ["{who} approved your water", "Coins added"],
     "water_rejected": ["{who} sent your water back", "Please take the photos again"],
+    "water_approved_extra": ["Cup {cups} today, past your goal!", "Brilliant. Here's a {bonus}-coin bonus"],
+    "water_declined": ["Yoyo has had enough water today", "She politely declined this one"],
     "hand_plus": ["Yoyo: dried +1", "The bear's paws are nice and clean"],
     "hand_minus": ["Yoyo: not dried −1", "The bear's paws are getting cracked"],
     "chore_due": ["Time to {what} today", "Do it on time for coins"],

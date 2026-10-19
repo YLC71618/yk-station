@@ -21,6 +21,8 @@
     "water_submitted": ["{who}喝水了", "去看照片，核可或退回"],
     "water_approved": ["{who}核可了你的水", "站幣已入帳"],
     "water_rejected": ["{who}退回了你的水", "請重拍"],
+    "water_approved_extra": ["今天第 {cups} 杯，超過目標了！", "太厲害了，多送你 {bonus} 站幣獎勵"],
+    "water_declined": ["又又今天已經喝夠了", "她婉拒了這次的喝水邀請"],
     "hand_plus": ["又又：有擦乾 +1", "熊熊的手手乾乾淨淨"],
     "hand_minus": ["又又：沒擦乾 −1", "熊熊的手手要龜裂了"],
     "chore_due": ["今天要{what}", "準時完成有站幣"],

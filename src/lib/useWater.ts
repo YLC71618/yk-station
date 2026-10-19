@@ -113,7 +113,15 @@ export function useWater() {
     return data as { ok: boolean; left?: number; error?: string }
   }, [load])
 
-  return { today, request, snoozesLeft, count, pendingFor, submit, review, requestWater, snooze }
+  /** Yoyo, goal already met: decline this request (no snooze used). */
+  const decline = useCallback(async () => {
+    const { data, error } = await supabase!.rpc('decline_water')
+    if (error) throw error
+    await load()
+    return data as { ok: boolean; error?: string }
+  }, [load])
+
+  return { today, request, snoozesLeft, count, pendingFor, submit, review, requestWater, snooze, decline }
 }
 
 /** Signed URLs for private photos (1 hour). */
