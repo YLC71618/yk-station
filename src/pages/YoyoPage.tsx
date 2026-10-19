@@ -4,6 +4,7 @@ import { useAuth } from '../auth/AuthProvider'
 import { useI18n } from '../i18n'
 import { useBalances } from '../lib/useBalances'
 import { CupsCard, RequestCard, ReviewList } from '../water/WaterParts'
+import { HandScoreCard } from '../components/KyleCards'
 
 export default function YoyoPage() {
   const { t } = useI18n()
@@ -25,9 +26,7 @@ export default function YoyoPage() {
         {me === 'yoyo' && <RequestCard />}
         <CupsCard owner="yoyo" me={me} title={t('water.todayTitle')} />
         <ReviewList owner="kyle" me={me} onResult={toast.show} />
-        <section className="card card--soft">
-          <p className="placeholder">{t('common.comingSoonPart', { what: t('hand.title'), n: 5 })}</p>
-        </section>
+        <HandScoreCard me={me} scoring onResult={toast.show} />
         <button type="button" className="add-task" onClick={() => toast.show(t('tasks.addLater'))}>
           {t('tasks.add')}
         </button>

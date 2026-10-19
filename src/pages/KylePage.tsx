@@ -7,6 +7,7 @@ import { useI18n } from '../i18n'
 import { useBalances } from '../lib/useBalances'
 import { useWaterContext } from '../water/WaterProvider'
 import { CupsCard, ReviewList } from '../water/WaterParts'
+import { ChoreCards, HandScoreCard } from '../components/KyleCards'
 
 export default function KylePage() {
   const { t } = useI18n()
@@ -49,10 +50,9 @@ export default function KylePage() {
           </button>
         )}
         <ReviewList owner="yoyo" me={me} onResult={toast.show} />
-        <section className="card card--soft">
-          <p className="placeholder">{t('common.comingSoonPart', { what: t('chores.title'), n: 5 })}</p>
-        </section>
+        <ChoreCards me={me} onResult={toast.show} />
         <CupsCard owner="kyle" me={me} title={t('water.myTitle')} />
+        <HandScoreCard me={me} scoring={false} onResult={toast.show} />
         <button type="button" className="add-task add-task--kyle" onClick={() => toast.show(t('tasks.addLater'))}>
           {t('tasks.add')}
         </button>

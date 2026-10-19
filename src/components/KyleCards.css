@@ -1,0 +1,154 @@
+.chores {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.chore {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  text-align: center;
+}
+
+.chore__title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+/* Countdown ring: conic fill shows the share of the interval still left. */
+.chore__ring {
+  --ring: var(--stat-water);
+  width: 88px;
+  height: 88px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: var(--border-key);
+  background: conic-gradient(var(--ring) 0 var(--pct), var(--ring-track) var(--pct) 100%);
+  box-shadow: inset 0 0 0 10px var(--card);
+}
+
+.chore__ring--urgent {
+  --ring: var(--yoyo);
+}
+
+.chore__num {
+  font-family: var(--font-num);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--kyle);
+}
+
+.chore__ring--urgent .chore__num {
+  color: var(--yoyo);
+}
+
+.chore__unit {
+  font-size: 11px;
+  color: var(--nav-ink);
+}
+
+.chore__every {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.chore__done {
+  width: 100%;
+  min-height: 42px;
+  border-radius: 14px;
+  border: var(--border-key);
+  background: var(--kyle-light);
+  color: var(--kyle);
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.hand {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hand__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hand__titles {
+  display: flex;
+  flex-direction: column;
+}
+
+.hand__total {
+  font-family: var(--font-num);
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--kyle);
+}
+
+.hand__buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.hand__plus,
+.hand__minus {
+  min-height: 52px;
+  border-radius: 16px;
+  border: var(--border-key);
+  font-size: 15px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.hand__plus {
+  background: var(--good-bg);
+  color: var(--good-ink);
+}
+
+.hand__minus {
+  background: var(--yoyo-light);
+  color: var(--yoyo);
+}
+
+.hand__log {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hand__log li {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 2px;
+  border-bottom: 1px dashed var(--divider);
+  font-size: 13px;
+  color: var(--nav-ink);
+}
+
+.hand__good {
+  color: var(--good-ink);
+}
+
+.hand__bad {
+  color: var(--yoyo);
+}
+
+.hand__empty {
+  justify-content: center !important;
+  color: var(--muted) !important;
+}
