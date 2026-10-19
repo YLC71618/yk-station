@@ -49,6 +49,7 @@
   "spinner.hint": "「想吃」清單裡的菜也會自動出現在轉盤上",
   "spinner.placeholder": "例如：拉麵",
   "spinner.duplicate": "「{name}」已經在轉盤上了",
+  "spinner.full": "轉盤滿了（最多 {n} 個），先刪掉一些再加",
   "coins.pill": "{n} 站幣",
   "tasks.add": "＋ 新增我的任務",
   "tasks.addLater": "自訂任務是第二階段的功能，之後再一起設計",

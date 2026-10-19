@@ -9,7 +9,7 @@ import { useI18n } from '../i18n'
 import { useAuth } from '../auth/AuthProvider'
 import { useFood, type Wish } from '../lib/useFood'
 import type { Role } from '../lib/supabase'
-import { recipeSources } from '../config/recipes'
+import { recipeSources, SPINNER_MAX_OPTIONS } from '../config/recipes'
 import { dishIdeas } from '../config/dishIdeas'
 import './FoodPage.css'
 
@@ -37,6 +37,7 @@ export default function FoodPage() {
   }
 
   async function suggest() {
+    if (food.options.length >= SPINNER_MAX_OPTIONS) return toast.show(t('spinner.full', { n: SPINNER_MAX_OPTIONS }))
     const fresh = dishIdeas.filter((d) => !food.spinnerNames.includes(d))
     if (!fresh.length) return toast.show(t('food.suggestNone'))
     const dish = fresh[Math.floor(Math.random() * fresh.length)]

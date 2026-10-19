@@ -49,6 +49,7 @@
   "spinner.hint": "Dishes on the wish lists join the spinner automatically",
   "spinner.placeholder": "e.g. ramen",
   "spinner.duplicate": "“{name}” is already on the spinner",
+  "spinner.full": "The spinner is full (max {n}). Remove some before adding more",
   "coins.pill": "{n} coins",
   "tasks.add": "+ Add my own task",
   "tasks.addLater": "Custom tasks are a phase 2 feature; we'll design them later",

@@ -7,3 +7,6 @@ export const recipeSources = [
 
 /** Most slices the spinner draws before labels get unreadable. */
 export const SPINNER_MAX_SLICES = 12
+
+/** Most standing spinner options. Mirrored by the wheel_options trigger in the database. */
+export const SPINNER_MAX_OPTIONS = 12

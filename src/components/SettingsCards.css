@@ -78,6 +78,23 @@
   margin: 0;
 }
 
+.spinner-opts__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.spinner-opts__count {
+  font-family: var(--font-num);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.spinner-opts__count.is-full {
+  color: var(--yoyo);
+}
+
 .spinner-opts__chips {
   display: flex;
   flex-wrap: wrap;

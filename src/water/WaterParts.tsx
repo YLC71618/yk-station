@@ -5,7 +5,7 @@ import { hhmm, isToday } from '../lib/time'
 import { signedPhotoUrls, type WaterLog } from '../lib/useWater'
 import { coins, water } from '../config/rules'
 import { useWaterContext } from './WaterProvider'
-import { BellIcon, CameraIcon } from '../components/icons'
+import { BellIcon, CameraIcon, DropIcon } from '../components/icons'
 import './WaterParts.css'
 
 /** Goal drops: filled = approved, light = waiting for review. */
@@ -73,6 +73,35 @@ export function RequestCard() {
         </button>
       </div>
     </section>
+  )
+}
+
+/** Kyle's 「叫又又喝水」, shown on Yoyo's tab. */
+export function PingButton({ onResult }: { onResult: (msg: string) => void }) {
+  const { t } = useI18n()
+  const { requestWater, request } = useWaterContext()
+  const [busy, setBusy] = useState(false)
+
+  async function ping() {
+    setBusy(true)
+    try {
+      const res = await requestWater()
+      onResult(t(res.existing ? 'water.ping.again' : 'water.ping.sent'))
+    } catch {
+      onResult(t('auth.error.generic'))
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  return (
+    <button type="button" className="ping-button" onClick={ping} disabled={busy}>
+      <DropIcon />
+      <span>
+        <strong>{t('water.ping.title')}</strong>
+        <small>{request ? t('water.ping.open') : t('water.ping.hint')}</small>
+      </span>
+    </button>
   )
 }
 

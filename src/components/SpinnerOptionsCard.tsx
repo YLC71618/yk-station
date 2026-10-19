@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { useI18n } from '../i18n'
 import { useFood } from '../lib/useFood'
+import { SPINNER_MAX_OPTIONS } from '../config/recipes'
 import { CloseIcon } from './icons'
 import './SettingsCards.css'
 
@@ -10,11 +11,12 @@ export default function SpinnerOptionsCard() {
   const { options, addOption, removeOption } = useFood()
   const [draft, setDraft] = useState('')
   const [note, setNote] = useState('')
+  const full = options.length >= SPINNER_MAX_OPTIONS
 
   async function onAdd(e: FormEvent) {
     e.preventDefault()
     const v = draft.trim()
-    if (!v) return
+    if (!v || full) return
     const ok = await addOption(v)
     setNote(ok ? '' : t('spinner.duplicate', { name: v }))
     if (ok) setDraft('')
@@ -22,8 +24,13 @@ export default function SpinnerOptionsCard() {
 
   return (
     <section id="spinner" className="card card--soft spinner-opts">
-      <h2 className="settings__heading">{t('spinner.title')}</h2>
-      <p className="muted-small">{t('spinner.hint')}</p>
+      <div className="spinner-opts__head">
+        <h2 className="settings__heading">{t('spinner.title')}</h2>
+        <span className={`spinner-opts__count${full ? ' is-full' : ''}`}>
+          {options.length} / {SPINNER_MAX_OPTIONS}
+        </span>
+      </div>
+      <p className="muted-small">{full ? t('spinner.full', { n: SPINNER_MAX_OPTIONS }) : t('spinner.hint')}</p>
       <div className="spinner-opts__chips">
         {options.map((o) => (
           <span key={o.id} className="opt-chip">
@@ -44,8 +51,9 @@ export default function SpinnerOptionsCard() {
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
           placeholder={t('spinner.placeholder')}
+          disabled={full}
         />
-        <button type="submit" className="pink-button" disabled={!draft.trim()}>
+        <button type="submit" className="pink-button" disabled={!draft.trim() || full}>
           {t('food.add')}
         </button>
       </form>
