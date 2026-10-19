@@ -20,6 +20,7 @@ function hash(s: string) {
 }
 
 const TONES = ['a', 'b', 'c', 'd'] as const
+const toneOf = (name: string) => TONES[Math.floor(hash(name + '#') * TONES.length) % TONES.length]
 
 /** Claw machine state: the plush pile and one grab at a time. */
 export function useClaw(names: string[]) {
@@ -30,7 +31,8 @@ export function useClaw(names: string[]) {
   }, [names])
 
   const [phase, setPhase] = useState<Phase>('idle')
-  const [target, setTarget] = useState<number | null>(null)
+  // The grabbed dish by name: the pile can change underneath (new dish added) without swapping the prize.
+  const [target, setTarget] = useState<string | null>(null)
   const [clawX, setClawX] = useState<number | null>(null)
   const [rope, setRope] = useState(0)
   const boxRef = useRef<HTMLDivElement>(null)
@@ -40,7 +42,7 @@ export function useClaw(names: string[]) {
   useEffect(() => () => timers.current.forEach(window.clearTimeout), [])
 
   const busy = phase !== 'idle' && phase !== 'done'
-  const result = phase === 'done' && target !== null ? items[target] : ''
+  const result = phase === 'done' && target !== null ? target : ''
 
   function later(ms: number, fn: () => void) {
     timers.current.push(window.setTimeout(fn, ms))
@@ -56,7 +58,7 @@ export function useClaw(names: string[]) {
     const x = r.left - box.left + r.width / 2 - CLAW_W / 2
     const drop = Math.max(0, r.top - box.top - RAIL_Y - 30)
 
-    setTarget(i)
+    setTarget(items[i])
     setRope(0)
     setPhase('move')
     setClawX(x)
@@ -103,7 +105,7 @@ export function ClawBox({ claw }: { claw: ReturnType<typeof useClaw> }) {
               <path d="M28 9 C36 14 38 22 32 30" />
             </g>
           </svg>
-          {carrying && <span className={`claw__prize claw__chip--${TONES[target! % TONES.length]}`}>{items[target!]}</span>}
+          {carrying && <span className={`claw__prize claw__chip--${toneOf(target!)}`}>{target}</span>}
         </div>
 
         <div className="claw__pile">
@@ -117,7 +119,7 @@ export function ClawBox({ claw }: { claw: ReturnType<typeof useClaw> }) {
                 ref={(el) => {
                   chipRefs.current[i] = el
                 }}
-                className={`claw__chip claw__chip--${TONES[i % TONES.length]}${carrying && i === target ? ' is-taken' : ''}`}
+                className={`claw__chip claw__chip--${toneOf(name)}${carrying && name === target ? ' is-taken' : ''}`}
                 style={{ transform: `rotate(${tilt}deg) translateY(${lift}px)` }}
               >
                 {name}
