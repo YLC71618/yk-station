@@ -1,5 +1,6 @@
 import PageHeader from '../shell/PageHeader'
 import Avatar from '../components/Avatar'
+import NotificationsCard from '../components/NotificationsCard'
 import { useAuth } from '../auth/AuthProvider'
 import { useI18n, type Lang } from '../i18n'
 import './SettingsPage.css'
@@ -49,6 +50,8 @@ export default function SettingsPage() {
             ))}
           </div>
         </section>
+
+        <NotificationsCard />
 
         <p className="placeholder">{t('common.comingSoon', { n: 9 })}</p>
       </div>

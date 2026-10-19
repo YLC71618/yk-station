@@ -21,6 +21,9 @@ export const water = {
   photoJpegQuality: 0.7,
   photoRetentionDays: 14,
   selfReminderHours: [10, 13, 16, 19],
+  /** "Behind pace" = fewer cups than the goal spread evenly over these waking hours. */
+  paceStartHour: 8,
+  paceEndHour: 22,
 } as const
 
 export const chores = {

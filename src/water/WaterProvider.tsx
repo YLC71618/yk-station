@@ -4,6 +4,7 @@ import { BellIcon } from '../components/icons'
 import { useAuth } from '../auth/AuthProvider'
 import { useI18n } from '../i18n'
 import { useWater } from '../lib/useWater'
+import { setBadge, syncPush } from '../lib/push'
 import './WaterProvider.css'
 
 type WaterState = ReturnType<typeof useWater> & { openCamera: () => void }
@@ -28,6 +29,16 @@ export function WaterProvider({ children }: { children: ReactNode }) {
   }, [snoozedUntil])
 
   const showRequest = me === 'yoyo' && !!water.request && snoozedUntil <= now && !cameraOpen
+
+  // App badge: cups waiting for my review + an open request for Yoyo (SPEC §7).
+  const other = me === 'yoyo' ? 'kyle' : 'yoyo'
+  const badge = water.pendingFor(other).length + (me === 'yoyo' && water.request ? 1 : 0)
+  useEffect(() => setBadge(badge), [badge])
+
+  // Keep this phone's push subscription on the server.
+  useEffect(() => {
+    syncPush()
+  }, [])
 
   async function snooze() {
     await water.snooze()

@@ -1,0 +1,31 @@
+{
+  "terms": {
+    "yoyo": "Yoyo",
+    "kyle": "Kyle",
+    "dehydration": "dehydration",
+    "cracked_paws": "cracked paws",
+    "rash": "fur rash",
+    "ingrown_claw": "an ingrown claw",
+    "mild": "mild",
+    "moderate": "moderate",
+    "severe": "severe",
+    "shave": "shave",
+    "nails": "trim your nails"
+  },
+  "messages": {
+    "water_request": ["Kyle wants you to drink water!", "A few sips count. Show him with a photo"],
+    "water_behind": ["Time for some water", "Only {cups} / {goal} cups so far. The bear is thirsty"],
+    "water_submitted": ["{who} drank some water", "Check the photos and approve or send back"],
+    "water_approved": ["{who} approved your water", "Coins added"],
+    "water_rejected": ["{who} sent your water back", "Please take the photos again"],
+    "hand_plus": ["Yoyo: dried +1", "The bear's paws are nice and clean"],
+    "hand_minus": ["Yoyo: not dried −1", "The bear's paws are getting cracked"],
+    "chore_due": ["Time to {what} today", "Do it on time for coins"],
+    "chore_overdue": ["{what}: {days} days overdue", "The bear gets dirtier every day"],
+    "fell_ill": ["The bear is ill: {illness}", "{caused_by} caused it, so {caused_by} pays"],
+    "severity_up": ["The bear got worse: {illness} · {severity}", "{caused_by}, please pay for treatment"],
+    "nudge": ["{from} is nudging you to pay", "The bear is still in bed"],
+    "streak": ["{days}-day perfect streak!", "+{coins} coins"],
+    "test": ["Test notification", "Hi {who}, notifications are working!"]
+  }
+}

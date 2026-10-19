@@ -1,0 +1,31 @@
+{
+  "terms": {
+    "yoyo": "又又",
+    "kyle": "鍇鍇",
+    "dehydration": "脫水",
+    "cracked_paws": "手手龜裂",
+    "rash": "毛毛疹",
+    "ingrown_claw": "指甲倒插",
+    "mild": "輕症",
+    "moderate": "中症",
+    "severe": "重症",
+    "shave": "刮鬍子",
+    "nails": "剪指甲"
+  },
+  "messages": {
+    "water_request": ["鍇鍇叫你喝水！", "喝幾口也可以，拍照給他看就算數"],
+    "water_behind": ["該喝水囉", "今天才 {cups} / {goal} 杯，熊熊口渴了"],
+    "water_submitted": ["{who}喝水了", "去看照片，核可或退回"],
+    "water_approved": ["{who}核可了你的水", "站幣已入帳"],
+    "water_rejected": ["{who}退回了你的水", "請重拍"],
+    "hand_plus": ["又又：有擦乾 +1", "熊熊的手手乾乾淨淨"],
+    "hand_minus": ["又又：沒擦乾 −1", "熊熊的手手要龜裂了"],
+    "chore_due": ["今天要{what}", "準時完成有站幣"],
+    "chore_overdue": ["{what}已經過期 {days} 天", "熊熊每天都在變髒"],
+    "fell_ill": ["熊熊生病了：{illness}", "是{caused_by}害的，要{caused_by}付醫藥費"],
+    "severity_up": ["熊熊變嚴重了：{illness} · {severity}", "{caused_by}快去付醫藥費"],
+    "nudge": ["{from}在催你付醫藥費", "熊熊還躺在病床上"],
+    "streak": ["連續 {days} 天全部達成！", "+{coins} 站幣"],
+    "test": ["測試通知", "嗨{who}，通知設定成功了！"]
+  }
+}

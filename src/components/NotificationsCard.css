@@ -1,0 +1,63 @@
+.notif {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.notif__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.notif__head .settings__heading {
+  flex: 1;
+  margin: 0;
+}
+
+.notif__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1.5px solid var(--brown);
+}
+
+.notif__dot--on {
+  background: var(--success);
+}
+
+.notif__dot--off {
+  background: var(--yoyo-soft);
+}
+
+.notif__text,
+.notif__note {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.notif__note {
+  color: var(--success);
+  font-weight: 700;
+}
+
+.notif__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.notif__button {
+  flex: 1;
+  border-radius: var(--radius-btn);
+  border: var(--border-key);
+  background: var(--yoyo-soft);
+  color: var(--text);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.notif__button--soft {
+  background: var(--card);
+}
