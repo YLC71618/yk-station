@@ -1,0 +1,9 @@
+.toast {
+  padding: 9px 14px;
+  border-radius: 14px;
+  background: var(--text);
+  color: var(--card);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.5;
+}
