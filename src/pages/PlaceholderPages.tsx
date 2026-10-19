@@ -1,6 +1,5 @@
 // Route stubs until each screen's milestone lands (SPEC §9).
 import PageHeader from '../shell/PageHeader'
-import Avatar from '../components/Avatar'
 import { useI18n } from '../i18n'
 
 function Soon({ n }: { n: number }) {
@@ -11,26 +10,6 @@ function Soon({ n }: { n: number }) {
         <p className="placeholder">{t('common.comingSoon', { n })}</p>
       </section>
     </div>
-  )
-}
-
-export function YoyoPage() {
-  const { t } = useI18n()
-  return (
-    <>
-      <PageHeader kicker={t('yoyo.kicker')} kickerColor="yoyo" title={t('tasks.title')} action={<Avatar role="yoyo" size={44} />} />
-      <Soon n={4} />
-    </>
-  )
-}
-
-export function KylePage() {
-  const { t } = useI18n()
-  return (
-    <>
-      <PageHeader kicker={t('kyle.kicker')} kickerColor="kyle" title={t('tasks.title')} action={<Avatar role="kyle" size={44} />} />
-      <Soon n={4} />
-    </>
   )
 }
 

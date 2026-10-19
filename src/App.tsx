@@ -7,7 +7,10 @@ import { I18nProvider, useI18n } from './i18n'
 import AppShell from './shell/AppShell'
 import WardPage from './pages/WardPage'
 import SettingsPage from './pages/SettingsPage'
-import { FoodPage, KylePage, ListsPage, YoyoPage } from './pages/PlaceholderPages'
+import YoyoPage from './pages/YoyoPage'
+import KylePage from './pages/KylePage'
+import { FoodPage, ListsPage } from './pages/PlaceholderPages'
+import { WaterProvider } from './water/WaterProvider'
 import './App.css'
 
 export default function App() {
@@ -55,6 +58,7 @@ function Gate() {
   return (
     // BASE_URL is "/yk-station/" on GitHub Pages, "/" locally.
     <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <WaterProvider>
       <Routes>
         <Route element={<AppShell />}>
           <Route index element={<WardPage />} />
@@ -66,6 +70,7 @@ function Gate() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
+      </WaterProvider>
     </BrowserRouter>
   )
 }

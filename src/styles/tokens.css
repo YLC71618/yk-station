@@ -12,6 +12,18 @@
   --nav-active: #fff1de;
   --kicker: #a9765e;
   --track: #f5e7dc;
+  --overlay: rgba(42, 26, 20, 0.92);
+  --camera-bg: #1e1410;
+  --camera-muted: #e9d9cf;
+  --camera-ok: #8fd6b2;
+  --drop-full: #8fc0ee;
+  --drop-pending: #dce9f8;
+  --kyle-on-blue: #dce9f8;
+  --good-bg: #ddf2e7;
+  --good-ink: #2e6b50;
+  --dashed-yoyo: #c9a893;
+  --dashed-kyle: #9db6d6;
+  --kyle-muted: #5b7090;
 
   --yoyo: #c2416a;
   --yoyo-light: #ffe7ec;

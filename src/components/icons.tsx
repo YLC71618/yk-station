@@ -41,6 +41,41 @@ export function BowlIcon({ size = 24 }: IconProps) {
   )
 }
 
+export function CameraIcon({ size = 20 }: IconProps) {
+  return (
+    <svg {...base} width={size} height={size}>
+      <path d="M3 8a2 2 0 0 1 2-2h2l2-2h6l2 2h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+      <circle cx="12" cy="13" r="3.5" />
+    </svg>
+  )
+}
+
+export function BellIcon({ size = 22 }: IconProps) {
+  return (
+    <svg {...base} width={size} height={size}>
+      <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+      <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+    </svg>
+  )
+}
+
+export function DropIcon({ size = 24 }: IconProps) {
+  return (
+    <svg {...base} width={size} height={size}>
+      <path d="M12 2.7c3 3.6 6 7 6 10.3a6 6 0 0 1-12 0c0-3.3 3-6.7 6-10.3z" />
+    </svg>
+  )
+}
+
+export function CheckCircleIcon({ size = 56 }: IconProps) {
+  return (
+    <svg {...base} width={size} height={size} strokeWidth={2.4}>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M8 12.5l3 3 5-6" />
+    </svg>
+  )
+}
+
 export function CartIcon({ size = 24 }: IconProps) {
   return (
     <svg {...base} width={size} height={size}>

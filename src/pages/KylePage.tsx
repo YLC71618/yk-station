@@ -1,0 +1,62 @@
+import { useState } from 'react'
+import PageHeader from '../shell/PageHeader'
+import { Toast, useToast } from '../components/Toast'
+import { DropIcon } from '../components/icons'
+import { useAuth } from '../auth/AuthProvider'
+import { useI18n } from '../i18n'
+import { useBalances } from '../lib/useBalances'
+import { useWaterContext } from '../water/WaterProvider'
+import { CupsCard, ReviewList } from '../water/WaterParts'
+
+export default function KylePage() {
+  const { t } = useI18n()
+  const { profile } = useAuth()
+  const me = profile!.role
+  const balances = useBalances()
+  const toast = useToast()
+  const { requestWater, request } = useWaterContext()
+  const [busy, setBusy] = useState(false)
+
+  async function ping() {
+    setBusy(true)
+    try {
+      const res = await requestWater()
+      toast.show(t(res.existing ? 'water.ping.again' : 'water.ping.sent'))
+    } catch {
+      toast.show(t('auth.error.generic'))
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  return (
+    <>
+      <PageHeader
+        kicker={t('kyle.kicker')}
+        kickerColor="kyle"
+        title={t('tasks.title')}
+        action={<span className="coin-pill coin-pill--kyle">{t('coins.pill', { n: balances.kyle })}</span>}
+      />
+      <div className="page-body">
+        <Toast message={toast.message} />
+        {me === 'kyle' && (
+          <button type="button" className="ping-button" onClick={ping} disabled={busy}>
+            <DropIcon />
+            <span>
+              <strong>{t('water.ping.title')}</strong>
+              <small>{request ? t('water.ping.open') : t('water.ping.hint')}</small>
+            </span>
+          </button>
+        )}
+        <ReviewList owner="yoyo" me={me} onResult={toast.show} />
+        <section className="card card--soft">
+          <p className="placeholder">{t('common.comingSoonPart', { what: t('chores.title'), n: 5 })}</p>
+        </section>
+        <CupsCard owner="kyle" me={me} title={t('water.myTitle')} />
+        <button type="button" className="add-task add-task--kyle" onClick={() => toast.show(t('tasks.addLater'))}>
+          {t('tasks.add')}
+        </button>
+      </div>
+    </>
+  )
+}

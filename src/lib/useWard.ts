@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { supabase, type Role } from './supabase'
+import { useBalances } from './useBalances'
 import type { Severity, TreatmentKind } from '../config/rules'
 
 export type Illness = 'dehydration' | 'cracked_paws' | 'rash' | 'ingrown_claw'
@@ -17,8 +18,6 @@ export type Bear = {
   admitted_at: string
 }
 
-export type Balances = Record<Role, number>
-
 export type TreatResult =
   | { ok: true; waiting: boolean }
   | { ok: false; error: 'healthy' | 'waiting_bed' | 'not_payer' | 'not_curable' | 'bad_kind' }
@@ -27,33 +26,21 @@ export type TreatResult =
 /** Bear row + both coin balances, kept live with Supabase Realtime. */
 export function useWard() {
   const [bear, setBear] = useState<Bear | null>(null)
-  const [balances, setBalances] = useState<Balances>({ yoyo: 0, kyle: 0 })
+  const balances = useBalances()
 
   const load = useCallback(async () => {
-    const db = supabase!
-    const [b, c] = await Promise.all([
-      db.from('bear').select('*').eq('id', 1).single(),
-      db.from('coin_balances').select('role, balance'),
-    ])
-    if (b.data) setBear(b.data as Bear)
-    if (c.data) {
-      const next: Balances = { yoyo: 0, kyle: 0 }
-      for (const row of c.data as { role: Role; balance: number }[]) next[row.role] = row.balance
-      setBalances(next)
-    }
+    const { data } = await supabase!.from('bear').select('*').eq('id', 1).single()
+    if (data) setBear(data as Bear)
   }, [])
 
   useEffect(() => {
     const db = supabase!
     // Finish a hospital stay whose bed wait is over, then read.
     db.rpc('settle_bear').then(load)
-
     const channel = db
       .channel('ward')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'bear' }, load)
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'coin_ledger' }, load)
       .subscribe()
-
     return () => {
       db.removeChannel(channel)
     }
