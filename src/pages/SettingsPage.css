@@ -2,6 +2,8 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  padding: 12px 14px;
+  border-radius: 20px;
 }
 
 .settings__who {
@@ -9,21 +11,35 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
+  gap: 2px;
 }
 
-.settings__who span {
+.settings__name {
+  font-size: 17px;
+  font-weight: 900;
+  color: var(--yoyo);
+}
+
+.settings__name--kyle {
+  color: var(--kyle);
+}
+
+.settings__email {
+  font-size: 12px;
   color: var(--muted);
-  font-size: 13px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .settings__signout {
-  padding: 0 14px;
-  border: 2px solid var(--divider);
-  border-radius: var(--radius-btn);
+  height: 40px;
+  min-height: 40px;
+  padding: 0 12px;
+  border: var(--border-key);
+  border-radius: 12px;
   background: var(--card);
-  color: var(--muted);
+  color: var(--text);
+  font-size: 13px;
   font-weight: 700;
   cursor: pointer;
 }
@@ -39,22 +55,23 @@
   grid-template-columns: 1fr 1fr;
   gap: 4px;
   padding: 4px;
-  border-radius: var(--radius-btn);
-  background: var(--bg);
-  border: 2px solid var(--divider);
+  border-radius: 14px;
+  background: var(--nav-active);
 }
 
 .settings__segmented button {
-  border: none;
-  border-radius: 10px;
+  min-height: 40px;
+  border: 2px solid transparent;
+  border-radius: 11px;
   background: transparent;
-  color: var(--muted);
-  font-weight: 700;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
 }
 
 .settings__segmented button.is-on {
-  background: var(--yoyo-soft);
-  color: var(--text);
-  box-shadow: inset 0 0 0 2px var(--brown);
+  border-color: var(--brown);
+  background: var(--card);
+  font-weight: 900;
 }

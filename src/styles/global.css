@@ -26,3 +26,45 @@ button {
   font: inherit;
   min-height: var(--touch);
 }
+
+/* Shared form controls. Inputs are 16px+ so iOS doesn't zoom in on focus. */
+.text-input {
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  padding: 0 12px;
+  border: 2px solid var(--divider);
+  border-radius: 14px;
+  background: var(--input-bg);
+  color: var(--text);
+  font: inherit;
+  font-size: 16px;
+}
+
+.text-input:focus {
+  outline: none;
+  border-color: var(--yoyo-soft);
+}
+
+.pink-button,
+.white-button {
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 14px;
+  border: var(--border-key);
+  background: var(--yoyo-soft);
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.white-button {
+  background: var(--card);
+  font-size: 14px;
+}
+
+.pink-button:disabled,
+.white-button:disabled {
+  opacity: 0.5;
+}
