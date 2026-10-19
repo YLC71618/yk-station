@@ -12,6 +12,7 @@ import KylePage from './pages/KylePage'
 import FoodPage from './pages/FoodPage'
 import ListsPage from './pages/ListsPage'
 import { WaterProvider } from './water/WaterProvider'
+import Onboarding from './onboarding/Onboarding'
 import './App.css'
 
 export default function App() {
@@ -58,6 +59,7 @@ function Gate() {
 
   return (
     // BASE_URL is "/yk-station/" on GitHub Pages, "/" locally.
+    <Onboarding>
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <WaterProvider>
       <Routes>
@@ -73,5 +75,6 @@ function Gate() {
       </Routes>
       </WaterProvider>
     </BrowserRouter>
+    </Onboarding>
   )
 }

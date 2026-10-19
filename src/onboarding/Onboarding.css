@@ -1,0 +1,128 @@
+.onboard {
+  min-height: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: calc(28px + var(--safe-top)) calc(24px + var(--safe-right)) calc(28px + var(--safe-bottom))
+    calc(24px + var(--safe-left));
+  text-align: center;
+}
+
+.onboard__icon {
+  width: 104px;
+  height: 104px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 26px;
+  border: var(--border-key);
+  background: var(--yoyo-soft);
+}
+
+.onboard__title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--brown);
+}
+
+.onboard__lead {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.onboard__steps {
+  width: 100%;
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.onboard__steps li {
+  counter-increment: step;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius-card);
+  border: var(--border-key);
+  background: var(--card);
+  text-align: left;
+  line-height: 1.5;
+}
+
+.onboard__steps li::before {
+  content: counter(step);
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--yoyo);
+  color: var(--card);
+  font-family: var(--font-num);
+  font-weight: 700;
+}
+
+.onboard__glyph {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  fill: none;
+  stroke: var(--kyle);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.onboard__glyph > rect:first-child {
+  fill: var(--kyle-light);
+  stroke: var(--kyle-border);
+}
+
+.onboard__glyph-hl {
+  fill: var(--yoyo-soft);
+  stroke: var(--brown);
+}
+
+.onboard__bullets {
+  width: 100%;
+  margin: 0;
+  padding: 12px 14px 12px 32px;
+  border-radius: var(--radius-card);
+  border: 2px solid var(--divider);
+  background: var(--card);
+  text-align: left;
+  line-height: 1.8;
+}
+
+.onboard__primary {
+  width: 100%;
+  min-height: 52px;
+  border-radius: 16px;
+  border: var(--border-key);
+  background: var(--yoyo);
+  color: var(--card);
+  font-size: 17px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.onboard__skip {
+  border: none;
+  background: none;
+  color: var(--muted);
+  text-decoration: underline;
+  cursor: pointer;
+}
