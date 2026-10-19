@@ -1,11 +1,12 @@
 import { useState, type FormEvent } from 'react'
 import type { SupabaseClient } from '@supabase/supabase-js'
-import { t, type MessageKey } from '../i18n'
+import { useI18n, type MessageKey } from '../i18n'
 import './LoginScreen.css'
 
 type Step = 'email' | 'code'
 
 export default function LoginScreen({ client, notAllowed }: { client: SupabaseClient; notAllowed: boolean }) {
+  const { t } = useI18n()
   const [step, setStep] = useState<Step>('email')
   const [email, setEmail] = useState('')
   const [code, setCode] = useState('')

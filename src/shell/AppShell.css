@@ -1,0 +1,41 @@
+.shell {
+  min-height: 100%;
+  background: var(--bg);
+}
+
+.shell--kyle {
+  background: var(--bg-kyle);
+}
+
+/* Room for the fixed nav so content is never covered. */
+.shell__content {
+  max-width: 520px;
+  margin: 0 auto;
+  padding-bottom: calc(84px + 14px + 16px + var(--safe-bottom));
+}
+
+/* Shared page body spacing. */
+.page-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px calc(20px + var(--safe-right)) 0 calc(20px + var(--safe-left));
+}
+
+.card {
+  background: var(--card);
+  border: var(--border-key);
+  border-radius: var(--radius-card);
+  padding: 14px;
+}
+
+.card--soft {
+  border-color: var(--divider);
+}
+
+.placeholder {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+  text-align: center;
+}

@@ -1,0 +1,87 @@
+/* Fixed bottom nav from the mockups: 64px bar, 80px round ward button rising 20px above it. */
+.nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  height: calc(84px + 14px + var(--safe-bottom));
+  padding: 0 calc(14px + var(--safe-right)) calc(14px + var(--safe-bottom)) calc(14px + var(--safe-left));
+  pointer-events: none;
+}
+
+.nav__bar {
+  position: absolute;
+  left: calc(14px + var(--safe-left));
+  right: calc(14px + var(--safe-right));
+  bottom: calc(14px + var(--safe-bottom));
+  height: 64px;
+  max-width: 460px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  align-items: center;
+  padding: 0 4px;
+  background: var(--card);
+  border: var(--border-key);
+  border-radius: 24px;
+  pointer-events: auto;
+}
+
+.nav__tab {
+  height: 54px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border-radius: 16px;
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--nav-ink);
+}
+
+.nav__tab--yoyo {
+  color: var(--yoyo);
+}
+
+.nav__tab--kyle {
+  color: var(--kyle);
+}
+
+.nav__tab--active.nav__tab--yoyo {
+  background: var(--yoyo-light);
+}
+
+.nav__tab--active.nav__tab--kyle {
+  background: var(--kyle-light);
+}
+
+.nav__tab--active.nav__tab--plain {
+  background: var(--nav-active);
+  color: var(--text);
+  font-weight: 900;
+}
+
+.nav__ward {
+  position: absolute;
+  left: 50%;
+  bottom: calc(14px + var(--safe-bottom));
+  transform: translate(-50%, -4px);
+  width: 80px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  border-radius: 50%;
+  background: var(--yoyo-soft);
+  border: 3px solid var(--brown);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 900;
+  text-decoration: none;
+  pointer-events: auto;
+}

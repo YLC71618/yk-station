@@ -9,6 +9,8 @@ type AuthState = {
   /** Set when someone signed in whose email has no profile (not Yoyo or Kyle). */
   notAllowed: boolean
   signOut: () => Promise<void>
+  /** Saves the editable profile fields (RLS only allows display_name and lang). */
+  updateProfile: (patch: Partial<Pick<Profile, 'display_name' | 'lang'>>) => Promise<void>
 }
 
 const AuthContext = createContext<AuthState | null>(null)
@@ -62,6 +64,11 @@ export function AuthProvider({ client, children }: { client: SupabaseClient; chi
     notAllowed,
     signOut: async () => {
       await client.auth.signOut()
+    },
+    updateProfile: async (patch) => {
+      if (!profile) return
+      setProfile({ ...profile, ...patch })
+      await client.from('profiles').update(patch).eq('id', profile.id)
     },
   }
 

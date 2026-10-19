@@ -1,0 +1,27 @@
+.avatar {
+  display: inline-block;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 1.5px solid var(--brown);
+}
+
+.avatar svg {
+  display: block;
+}
+
+.avatar--yoyo {
+  background: var(--yoyo-light);
+}
+
+.avatar--kyle {
+  background: var(--kyle-light);
+}
+
+.avatar--role-ring.avatar--yoyo {
+  border-color: var(--yoyo);
+}
+
+.avatar--role-ring.avatar--kyle {
+  border-color: var(--kyle);
+}

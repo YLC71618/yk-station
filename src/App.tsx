@@ -1,70 +1,71 @@
+import { useEffect } from 'react'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { supabase } from './lib/supabase'
 import { AuthProvider, useAuth } from './auth/AuthProvider'
 import LoginScreen from './auth/LoginScreen'
-import { t } from './i18n'
+import { I18nProvider, useI18n } from './i18n'
+import AppShell from './shell/AppShell'
+import WardPage from './pages/WardPage'
+import SettingsPage from './pages/SettingsPage'
+import { FoodPage, KylePage, ListsPage, YoyoPage } from './pages/PlaceholderPages'
 import './App.css'
 
-const isStandalone =
-  window.matchMedia('(display-mode: standalone)').matches ||
-  (navigator as Navigator & { standalone?: boolean }).standalone === true
-
 export default function App() {
-  if (!supabase) {
-    return (
-      <main className="scaffold">
-        <p className="scaffold__tagline">{t('scaffold.supabase.missing')}</p>
-      </main>
-    )
-  }
   return (
-    <AuthProvider client={supabase}>
-      <Gate />
-    </AuthProvider>
+    <I18nProvider>
+      {supabase ? (
+        <AuthProvider client={supabase}>
+          <Gate />
+        </AuthProvider>
+      ) : (
+        <MissingConfig />
+      )}
+    </I18nProvider>
+  )
+}
+
+function MissingConfig() {
+  const { t } = useI18n()
+  return (
+    <div className="splash">
+      <p>{t('config.missing')}</p>
+    </div>
   )
 }
 
 function Gate() {
-  const { status, notAllowed } = useAuth()
+  const { status, notAllowed, profile } = useAuth()
+  const { setLang } = useI18n()
+
+  // The language follows the profile, so it is the same on every device.
+  const profileLang = profile?.lang
+  useEffect(() => {
+    if (profileLang) setLang(profileLang)
+  }, [profileLang, setLang])
+
   if (status === 'loading') {
     return (
-      <main className="scaffold">
-        <img className="scaffold__icon" src={`${import.meta.env.BASE_URL}icon.svg`} alt="" />
-      </main>
+      <div className="splash">
+        <img className="splash__icon" src={`${import.meta.env.BASE_URL}icon.svg`} alt="" />
+      </div>
     )
   }
   if (status === 'signedOut') return <LoginScreen client={supabase!} notAllowed={notAllowed} />
-  return <Home />
-}
 
-// Placeholder home until the app shell lands in Milestone 2.
-function Home() {
-  const { profile, session, signOut } = useAuth()
   return (
-    <main className="scaffold">
-      <img className="scaffold__icon" src={`${import.meta.env.BASE_URL}icon.svg`} alt="" />
-      <h1 className="scaffold__name">{t('app.name')}</h1>
-
-      <section className="scaffold__card">
-        <h2>{t('home.hello').replace('{name}', profile!.display_name)}</h2>
-        <p>{t('scaffold.body')}</p>
-        <div className="scaffold__row">
-          <span>{t('home.account')}</span>
-          <span className="scaffold__value">{session!.user.email}</span>
-        </div>
-        <div className="scaffold__row">
-          <span>{t('home.role')}</span>
-          <span className="scaffold__value">{t(profile!.role === 'yoyo' ? 'role.yoyo' : 'role.kyle')}</span>
-        </div>
-        <div className="scaffold__row">
-          <span>{t('scaffold.mode')}</span>
-          <span className="scaffold__value">
-            {t(isStandalone ? 'scaffold.mode.standalone' : 'scaffold.mode.browser')}
-          </span>
-        </div>
-        <button className="scaffold__signout" onClick={signOut}>
-          {t('auth.signOut')}
-        </button>
-      </section>
-    </main>
+    // BASE_URL is "/yk-station/" on GitHub Pages, "/" locally.
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <Routes>
+        <Route element={<AppShell />}>
+          <Route index element={<WardPage />} />
+          <Route path="yoyo" element={<YoyoPage />} />
+          <Route path="kyle" element={<KylePage />} />
+          <Route path="food" element={<FoodPage />} />
+          <Route path="lists" element={<ListsPage />} />
+          <Route path="settings" element={<SettingsPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }

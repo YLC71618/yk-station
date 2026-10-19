@@ -1,0 +1,57 @@
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: calc(18px + var(--safe-top)) calc(20px + var(--safe-right)) 0 calc(20px + var(--safe-left));
+}
+
+.page-header__titles {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-header__kicker {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.page-header__kicker--brand {
+  font-family: var(--font-num);
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--kicker);
+}
+
+.page-header__kicker--yoyo {
+  color: var(--yoyo);
+}
+
+.page-header__kicker--kyle {
+  color: var(--kyle);
+}
+
+.page-header__title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.page-header__title--big {
+  font-size: 24px;
+}
+
+/* 44px round white button with brown border (back, settings). */
+.round-button {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--card);
+  border: var(--border-key);
+  color: var(--text);
+}

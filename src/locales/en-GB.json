@@ -1,11 +1,28 @@
 {
   "app.name": "YK Station",
-  "app.tagline": "Yoyo and Kyle's little station",
-  "scaffold.body": "Milestone 1 done: sign-in and database are ready. Next up: the app shell.",
-  "scaffold.supabase.missing": "Supabase isn't configured yet (.env.local)",
-  "scaffold.mode": "Opened as",
-  "scaffold.mode.standalone": "Home Screen app",
-  "scaffold.mode.browser": "Browser",
+  "config.missing": "Supabase isn't configured yet (.env.local)",
+  "common.comingSoon": "This page arrives in Milestone {n}",
+
+  "role.yoyo": "Yoyo",
+  "role.kyle": "Kyle",
+
+  "nav.menu": "Main menu",
+  "nav.ward": "Ward",
+  "nav.food": "Food",
+  "nav.lists": "Lists",
+  "nav.backToWard": "Back to the ward",
+
+  "ward.title": "Bear Ward",
+  "ward.bearLabel": "The bear lying in a hospital bed",
+  "tasks.title": "My tasks",
+  "yoyo.kicker": "Yoyo's tab",
+  "kyle.kicker": "Kyle's tab",
+  "food.title": "What shall we eat?",
+  "lists.kicker": "Shared",
+  "lists.title": "Shopping lists",
+  "settings.title": "Settings",
+  "settings.language": "Language",
+
   "auth.email.label": "Your email",
   "auth.email.placeholder": "name@example.com",
   "auth.email.submit": "Send me a code",
@@ -20,10 +37,5 @@
   "auth.error.notAllowed": "This app is only for Yoyo and Kyle",
   "auth.error.badCode": "That code is wrong or has expired. Please try again",
   "auth.error.rateLimit": "Too many attempts. Please wait a few minutes",
-  "auth.error.generic": "Something went wrong. Please try again",
-  "home.hello": "Hi, {name}!",
-  "home.account": "Account",
-  "home.role": "Role",
-  "role.yoyo": "Yoyo",
-  "role.kyle": "Kyle"
+  "auth.error.generic": "Something went wrong. Please try again"
 }
