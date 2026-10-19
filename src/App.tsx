@@ -10,7 +10,7 @@ import SettingsPage from './pages/SettingsPage'
 import YoyoPage from './pages/YoyoPage'
 import KylePage from './pages/KylePage'
 import FoodPage from './pages/FoodPage'
-import { ListsPage } from './pages/PlaceholderPages'
+import ListsPage from './pages/ListsPage'
 import { WaterProvider } from './water/WaterProvider'
 import './App.css'
 

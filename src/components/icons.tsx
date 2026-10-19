@@ -94,6 +94,15 @@ export function CloseIcon({ size = 16 }: IconProps) {
   )
 }
 
+export function PlusIcon({ size = 20 }: IconProps) {
+  return (
+    <svg {...base} width={size} height={size} strokeWidth={2.6}>
+      <path d="M12 5v14" />
+      <path d="M5 12h14" />
+    </svg>
+  )
+}
+
 export function CartIcon({ size = 24 }: IconProps) {
   return (
     <svg {...base} width={size} height={size}>
