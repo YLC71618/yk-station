@@ -3,7 +3,9 @@ import { supabase, type Role } from './supabase'
 import { useBalances } from './useBalances'
 import type { Severity, TreatmentKind } from '../config/rules'
 
-export type Illness = 'dehydration' | 'cracked_paws' | 'rash' | 'ingrown_claw'
+export type Illness = 'dehydration' | 'cracked_paws' | 'rash' | 'ingrown_claw' | 'blues' | 'exhausted'
+/** Who pays: one person, or 'both' (half each) for illnesses from the shared stats. */
+export type Payer = Role | 'both'
 
 export type Bear = {
   water: number
@@ -12,16 +14,16 @@ export type Bear = {
   energy: number
   illness: Illness | null
   severity: Severity | null
-  caused_by: Role | null
+  caused_by: Payer | null
   ill_since: string | null
   hospital_until: string | null
   admitted_at: string
 }
 
 export type TreatResult =
-  | { ok: true; waiting: boolean }
+  | { ok: true; waiting: boolean; shared: boolean }
   | { ok: false; error: 'healthy' | 'waiting_bed' | 'not_payer' | 'not_curable' | 'bad_kind' }
-  | { ok: false; error: 'insufficient'; missing: number }
+  | { ok: false; error: 'insufficient'; missing: number; partner_missing?: number }
 
 /** Bear row + both coin balances, kept live with Supabase Realtime. */
 export function useWard() {

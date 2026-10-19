@@ -1,5 +1,6 @@
 .who-chips {
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
 }
 
@@ -14,6 +15,7 @@
   color: var(--c);
   font-size: 12px;
   font-weight: 700;
+  white-space: nowrap;
   cursor: pointer;
 }
 

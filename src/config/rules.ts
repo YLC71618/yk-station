@@ -37,8 +37,9 @@ export const bear = {
   statMax: 100,
   water: { approvedCup: 10, missedGoal: -20 },
   clean: { handPlus: 5, handMinus: -10, overduePerDay: -10, crackedPawsBelow: 40 },
-  mood: { perIllDay: -5, treatment: 15 },
-  energy: { cooked: 10, idleDay: -10 },
+  // Mood and energy belong to both, so illnesses from them are paid half each.
+  mood: { perIllDay: -5, treatment: 15, bluesBelow: 40 },
+  energy: { cooked: 10, idleDay: -10, exhaustedBelow: 40 },
   escalation: { moderateAfterDays: 2, severeAfterDays: 4 },
 } as const
 

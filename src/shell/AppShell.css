@@ -11,7 +11,7 @@
 .shell__content {
   max-width: 520px;
   margin: 0 auto;
-  padding-bottom: calc(84px + 14px + 16px + var(--safe-bottom));
+  padding-bottom: calc(84px + var(--nav-gap) + 16px);
 }
 
 /* Shared page body spacing. */

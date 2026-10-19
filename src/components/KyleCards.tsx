@@ -49,8 +49,12 @@ export function ChoreCards({ me, onResult }: { me: Role; onResult: (msg: string)
             </div>
             <span className="chore__every">{t('chore.every', { n: c.interval_days })}</span>
             {me === 'kyle' && (
-              <button type="button" className="chore__done" disabled={busy === c.kind} onClick={() => done(c)}>
-                {left >= 0 ? t('chore.doneButton', { coins: coins.choreOnTime }) : t('chore.doneButtonLate')}
+              <button type="button" className="chore__done" disabled={busy === c.kind || left > 0} onClick={() => done(c)}>
+                {left > 0
+                  ? t('chore.notYet', { n: left })
+                  : left === 0
+                    ? t('chore.doneButton', { coins: coins.choreOnTime })
+                    : t('chore.doneButtonLate')}
               </button>
             )}
           </section>

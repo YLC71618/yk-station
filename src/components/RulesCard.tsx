@@ -27,6 +27,7 @@ export default function RulesCard() {
     },
     { what: t('rules.lose.ill'), amount: t('rules.lose.illEffect', { n: -bear.mood.perIllDay }) },
     { what: t('rules.lose.idle'), amount: t('rules.lose.idleEffect', { n: -bear.energy.idleDay }) },
+    { what: t('rules.lose.shared', { n: bear.mood.bluesBelow }), amount: t('rules.lose.sharedEffect') },
     {
       what: t('rules.lose.untreated'),
       amount: t('rules.lose.untreatedEffect', { moderate: bear.escalation.moderateAfterDays, severe: bear.escalation.severeAfterDays }),

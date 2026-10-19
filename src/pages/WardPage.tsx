@@ -24,28 +24,42 @@ export default function WardPage() {
   const { bear, balances, treat, nudge } = useWard()
   const toast = useToast()
   const [missing, setMissing] = useState(0)
+  const [partnerMissing, setPartnerMissing] = useState(0)
   const [busy, setBusy] = useState(false)
 
   const sick = !!bear?.illness
   const waiting = !!bear?.hospital_until
   const payer = bear?.caused_by ?? null
-  const iPay = sick && payer === me
+  const shared = payer === 'both'
+  const iPay = sick && (payer === me || shared)
+  const partner: Role = me === 'yoyo' ? 'kyle' : 'yoyo'
+  const half = (kind: TreatmentKind) => Math.ceil(treatments[kind].cost / 2)
 
   async function onTreat(kind: TreatmentKind) {
     if (!bear || busy) return
     setMissing(0)
+    setPartnerMissing(0)
     if (!sick) return toast.show(t('ward.toast.healthy'))
     setBusy(true)
     try {
       const res = await treat(kind)
       if (res.ok) {
+        const vars = {
+          who: roleName(t, me),
+          cost: treatments[kind].cost,
+          each: half(kind),
+          hours: treatments[kind].waitHours,
+          treatment: t(`treat.${kind}`),
+        }
         toast.show(
-          res.waiting
-            ? t('ward.toast.admitted', { who: roleName(t, me), cost: treatments[kind].cost, hours: treatments[kind].waitHours })
-            : t('ward.toast.cured', { who: roleName(t, me), cost: treatments[kind].cost, treatment: t(`treat.${kind}`) }),
+          res.shared
+            ? t(res.waiting ? 'ward.toast.admittedShared' : 'ward.toast.curedShared', vars)
+            : t(res.waiting ? 'ward.toast.admitted' : 'ward.toast.cured', vars),
         )
       } else if (res.error === 'insufficient') {
         setMissing(res.missing)
+        setPartnerMissing(res.partner_missing ?? 0)
+        if (!res.missing && res.partner_missing) toast.show(t('ward.partnerMissing', { who: roleName(t, partner), n: res.partner_missing }))
       } else {
         toast.show(t(`ward.error.${res.error}` as MessageKey))
       }
@@ -57,14 +71,15 @@ export default function WardPage() {
   }
 
   async function onNudge() {
+    if (!payer || payer === 'both') return
     await nudge()
-    toast.show(t('ward.toast.nudged', { who: roleName(t, payer!) }))
+    toast.show(t('ward.toast.nudged', { who: roleName(t, payer) }))
   }
 
   return (
     <>
       <PageHeader
-        back={false}
+        big
         kicker="YK STATION"
         title={t('ward.title')}
         action={
@@ -120,11 +135,13 @@ export default function WardPage() {
             >
               <span className="ward__treat-label">{t(`treat.${kind}`)}</span>
               <span className="ward__treat-cost">
-                {treatments[kind].cost} {t('coins.unit')}
+                {shared ? t('ward.eachCost', { n: half(kind) }) : `${treatments[kind].cost} ${t('coins.unit')}`}
               </span>
             </button>
           ))}
         </div>
+
+        {sick && shared && !waiting && <p className="ward__note ward__note--soft">{t('ward.sharedNote')}</p>}
 
         {waiting && bear?.hospital_until && (
           <p className="ward__note">
@@ -132,7 +149,7 @@ export default function WardPage() {
           </p>
         )}
 
-        {sick && !waiting && payer && !iPay && (
+        {sick && !waiting && payer && payer !== 'both' && !iPay && (
           <div className="ward__note ward__note--row">
             <span>{t('ward.waitingPayer', { who: roleName(t, payer) })}</span>
             <button type="button" className="ward__nudge" onClick={onNudge}>
@@ -142,6 +159,9 @@ export default function WardPage() {
         )}
 
         {missing > 0 && <EarnTips missing={missing} role={me} />}
+        {missing > 0 && partnerMissing > 0 && (
+          <p className="ward__note">{t('ward.partnerMissing', { who: roleName(t, partner), n: partnerMissing })}</p>
+        )}
       </div>
     </>
   )

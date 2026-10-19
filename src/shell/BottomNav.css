@@ -5,8 +5,7 @@
   right: 0;
   bottom: 0;
   z-index: 10;
-  height: calc(84px + 14px + var(--safe-bottom));
-  padding: 0 calc(14px + var(--safe-right)) calc(14px + var(--safe-bottom)) calc(14px + var(--safe-left));
+  height: calc(84px + var(--nav-gap));
   pointer-events: none;
 }
 
@@ -14,7 +13,7 @@
   position: absolute;
   left: calc(14px + var(--safe-left));
   right: calc(14px + var(--safe-right));
-  bottom: calc(14px + var(--safe-bottom));
+  bottom: var(--nav-gap);
   height: 64px;
   max-width: 460px;
   margin: 0 auto;
@@ -67,7 +66,7 @@
 .nav__ward {
   position: absolute;
   left: 50%;
-  bottom: calc(14px + var(--safe-bottom));
+  bottom: var(--nav-gap);
   transform: translate(-50%, -4px);
   width: 80px;
   height: 80px;

@@ -20,6 +20,18 @@
   color: var(--card);
 }
 
+.request-card--rejected {
+  background: var(--yoyo);
+}
+
+.request-card--rejected .request-card__go {
+  color: var(--yoyo);
+}
+
+.request-card--rejected p {
+  color: var(--yoyo-light);
+}
+
 .request-card--big {
   width: 100%;
   max-width: 360px;

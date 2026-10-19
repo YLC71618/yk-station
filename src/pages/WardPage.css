@@ -220,6 +220,12 @@
   font-weight: 700;
 }
 
+.ward__note--soft {
+  background: var(--nav-active);
+  color: var(--text);
+  font-weight: 500;
+}
+
 .ward__note--row {
   display: flex;
   align-items: center;

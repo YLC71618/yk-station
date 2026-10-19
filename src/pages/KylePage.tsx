@@ -49,9 +49,9 @@ export default function KylePage() {
             </span>
           </button>
         )}
-        <ReviewList owner="yoyo" me={me} onResult={toast.show} />
         <ChoreCards me={me} onResult={toast.show} />
         <CupsCard owner="kyle" me={me} title={t('water.myTitle')} />
+        <ReviewList owner="kyle" me={me} onResult={toast.show} />
         <HandScoreCard me={me} scoring={false} onResult={toast.show} />
         <button type="button" className="add-task add-task--kyle" onClick={() => toast.show(t('tasks.addLater'))}>
           {t('tasks.add')}

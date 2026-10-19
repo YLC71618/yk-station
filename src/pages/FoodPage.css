@@ -8,6 +8,7 @@
 
 .food-add__top {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
@@ -48,6 +49,10 @@
   line-height: 1.1;
   color: var(--yoyo);
   overflow-wrap: anywhere;
+}
+
+.food-spin__idea {
+  background: var(--nav-active);
 }
 
 .food-spin__edit {

@@ -10,6 +10,7 @@ import { useAuth } from '../auth/AuthProvider'
 import { useFood, type Wish } from '../lib/useFood'
 import type { Role } from '../lib/supabase'
 import { recipeSources } from '../config/recipes'
+import { dishIdeas } from '../config/dishIdeas'
 import './FoodPage.css'
 
 export default function FoodPage() {
@@ -33,6 +34,14 @@ export default function FoodPage() {
   function onSubmit(e: FormEvent) {
     e.preventDefault()
     add(draft)
+  }
+
+  async function suggest() {
+    const fresh = dishIdeas.filter((d) => !food.spinnerNames.includes(d))
+    if (!fresh.length) return toast.show(t('food.suggestNone'))
+    const dish = fresh[Math.floor(Math.random() * fresh.length)]
+    await food.addOption(dish)
+    toast.show(t('food.suggested', { dish }))
   }
 
   async function cook(w: Wish) {
@@ -84,6 +93,9 @@ export default function FoodPage() {
                 {t('food.addFor', { who: name(who) })}
               </button>
             )}
+            <button type="button" className="white-button food-spin__idea" onClick={suggest}>
+              {t('food.suggest')}
+            </button>
             <Link to="/settings#spinner" className="food-spin__edit">
               {t('food.editOptions')}
             </Link>

@@ -60,6 +60,11 @@
   color: var(--muted);
 }
 
+.chore__done:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
 .chore__done {
   width: 100%;
   min-height: 42px;

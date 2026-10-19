@@ -28,7 +28,12 @@ export function WaterProvider({ children }: { children: ReactNode }) {
     return () => window.clearTimeout(id)
   }, [snoozedUntil])
 
-  const showRequest = me === 'yoyo' && !!water.request && snoozedUntil <= now && !cameraOpen
+  // My latest cup today was sent back → must retake before doing anything else.
+  const mine = water.today.filter((l) => l.role === me)
+  const mustRetake = mine.length > 0 && mine[mine.length - 1].status === 'rejected' && !cameraOpen
+  const reviewer = t(me === 'yoyo' ? 'role.kyle' : 'role.yoyo')
+
+  const showRequest = me === 'yoyo' && !!water.request && snoozedUntil <= now && !cameraOpen && !mustRetake
 
   // App badge: cups waiting for my review + an open request for Yoyo (SPEC §7).
   const other = me === 'yoyo' ? 'kyle' : 'yoyo'
@@ -67,9 +72,24 @@ export function WaterProvider({ children }: { children: ReactNode }) {
         </div>
       )}
 
+      {mustRetake && (
+        <div className="request-overlay" role="alertdialog" aria-modal="true" aria-labelledby="retake-title">
+          <div className="request-card request-card--big request-card--rejected">
+            <div className="request-card__head">
+              <BellIcon size={28} />
+              <h2 id="retake-title">{t('water.retake.title', { who: reviewer })}</h2>
+            </div>
+            <p>{t('water.retake.hint')}</p>
+            <button type="button" className="request-card__go" onClick={() => setCameraOpen(true)}>
+              {t('water.retake.go')}
+            </button>
+          </div>
+        </div>
+      )}
+
       {cameraOpen && (
         <WaterCamera
-          reviewerName={t(me === 'yoyo' ? 'role.kyle' : 'role.yoyo')}
+          reviewerName={reviewer}
           feedsBear={me === 'yoyo'}
           onSubmit={(full, empty) => water.submit(me, full, empty)}
           onClose={() => setCameraOpen(false)}

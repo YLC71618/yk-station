@@ -63,4 +63,6 @@
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-left: env(safe-area-inset-left, 0px);
   --safe-right: env(safe-area-inset-right, 0px);
+  /* Gap under the bottom nav: just clears the iPhone home bar instead of adding to it. */
+  --nav-gap: max(10px, calc(var(--safe-bottom) - 12px));
 }

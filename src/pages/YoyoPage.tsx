@@ -25,7 +25,7 @@ export default function YoyoPage() {
         <Toast message={toast.message} />
         {me === 'yoyo' && <RequestCard />}
         <CupsCard owner="yoyo" me={me} title={t('water.todayTitle')} />
-        <ReviewList owner="kyle" me={me} onResult={toast.show} />
+        <ReviewList owner="yoyo" me={me} onResult={toast.show} />
         <HandScoreCard me={me} scoring onResult={toast.show} />
         <button type="button" className="add-task" onClick={() => toast.show(t('tasks.addLater'))}>
           {t('tasks.add')}

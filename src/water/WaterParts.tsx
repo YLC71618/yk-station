@@ -92,6 +92,7 @@ export function ReviewList({ owner, me, onResult }: { owner: Role; me: Role; onR
 
   if (!items.length) return null
   const ownerName = t(owner === 'yoyo' ? 'role.yoyo' : 'role.kyle')
+  const reviewerName = t(owner === 'yoyo' ? 'role.kyle' : 'role.yoyo')
 
   async function act(log: WaterLog, approve: boolean) {
     setBusy(log.id)
@@ -109,7 +110,8 @@ export function ReviewList({ owner, me, onResult }: { owner: Role; me: Role; onR
 
   return (
     <section className={`card review review--${owner}`}>
-      <h2 className="section-title">{t('water.review.title', { who: ownerName })}</h2>
+      <h2 className="section-title">{t('water.review.title', { who: ownerName, reviewer: reviewerName })}</h2>
+      {!canReview && <span className="muted-small">{t('water.review.ownerHint', { reviewer: reviewerName })}</span>}
       {items.map((log) => (
         <div key={log.id} className="review__row">
           <div className="review__photos">
