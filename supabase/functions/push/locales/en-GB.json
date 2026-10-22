@@ -29,7 +29,6 @@
     "chore_overdue": ["{what}: {days} days overdue", "The bear gets dirtier every day"],
     "fell_ill": ["The bear is ill: {illness}", "{caused_by} caused it, so {caused_by} pays"],
     "severity_up": ["The bear got worse: {illness} · {severity}", "{caused_by}, please pay for treatment"],
-    "nudge": ["{from} is nudging you to pay", "The bear is still in bed"],
     "streak": ["{days}-day perfect streak!", "+{coins} coins"],
     "test": ["Test notification", "Hi {who}, notifications are working!"]
   }

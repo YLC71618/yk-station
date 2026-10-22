@@ -29,7 +29,6 @@
     "chore_overdue": ["{what}已經過期 {days} 天", "熊熊每天都在變髒"],
     "fell_ill": ["熊熊生病了：{illness}", "是{caused_by}害的，要{caused_by}付醫藥費"],
     "severity_up": ["熊熊變嚴重了：{illness} · {severity}", "{caused_by}快去付醫藥費"],
-    "nudge": ["{from}在催你付醫藥費", "熊熊還躺在病床上"],
     "streak": ["連續 {days} 天全部達成！", "+{coins} 站幣"],
     "test": ["測試通知", "嗨{who}，通知設定成功了！"]
   }

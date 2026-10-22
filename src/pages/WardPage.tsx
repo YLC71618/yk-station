@@ -21,7 +21,7 @@ export default function WardPage() {
   const { t } = useI18n()
   const { profile } = useAuth()
   const me = profile!.role
-  const { bear, balances, treat, nudge } = useWard()
+  const { bear, balances, treat } = useWard()
   const toast = useToast()
   const [missing, setMissing] = useState(0)
   const [partnerMissing, setPartnerMissing] = useState(0)
@@ -68,12 +68,6 @@ export default function WardPage() {
     } finally {
       setBusy(false)
     }
-  }
-
-  async function onNudge() {
-    if (!payer || payer === 'both') return
-    await nudge()
-    toast.show(t('ward.toast.nudged', { who: roleName(t, payer) }))
   }
 
   return (
@@ -155,12 +149,9 @@ export default function WardPage() {
         )}
 
         {sick && !waiting && payer && payer !== 'both' && !iPay && (
-          <div className="ward__note ward__note--row">
-            <span>{t('ward.waitingPayer', { who: roleName(t, payer) })}</span>
-            <button type="button" className="ward__nudge" onClick={onNudge}>
-              {t('ward.nudge')}
-            </button>
-          </div>
+          <p className="ward__note">
+            {t('ward.waitingPayer', { who: roleName(t, payer), illness: t(`illness.${bear!.illness!}`) })}
+          </p>
         )}
 
         {missing > 0 && <EarnTips missing={missing} role={me} />}

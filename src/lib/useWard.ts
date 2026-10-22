@@ -66,9 +66,5 @@ export function useWard() {
     [load],
   )
 
-  const nudge = useCallback(async () => {
-    await supabase!.rpc('nudge_payer')
-  }, [])
-
-  return { bear, balances, treat, nudge }
+  return { bear, balances, treat }
 }
