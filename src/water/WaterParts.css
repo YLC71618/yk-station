@@ -221,3 +221,19 @@
   border-color: var(--dashed-kyle);
   color: var(--kyle-muted);
 }
+
+.water-paused {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.water-paused p {
+  margin: 0;
+}
+
+.water-paused__link {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--brown);
+}

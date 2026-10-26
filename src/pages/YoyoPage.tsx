@@ -3,7 +3,7 @@ import { Toast, useToast } from '../components/Toast'
 import { useAuth } from '../auth/AuthProvider'
 import { useI18n } from '../i18n'
 import { useBalances } from '../lib/useBalances'
-import { CupsCard, PingButton, RequestCard, ReviewList } from '../water/WaterParts'
+import { CupsCard, PingButton, RequestCard, ReviewList, WaterGate } from '../water/WaterParts'
 import { HandScoreCard } from '../components/KyleCards'
 
 export default function YoyoPage() {
@@ -23,10 +23,12 @@ export default function YoyoPage() {
       />
       <div className="page-body">
         <Toast message={toast.message} />
-        {me === 'yoyo' && <RequestCard />}
-        {me === 'kyle' && <PingButton onResult={toast.show} />}
-        <CupsCard owner="yoyo" me={me} title={t('water.todayTitle')} />
-        <ReviewList owner="yoyo" me={me} onResult={toast.show} />
+        <WaterGate>
+          {me === 'yoyo' && <RequestCard />}
+          {me === 'kyle' && <PingButton onResult={toast.show} />}
+          <CupsCard owner="yoyo" me={me} title={t('water.todayTitle')} />
+          <ReviewList owner="yoyo" me={me} onResult={toast.show} />
+        </WaterGate>
         <HandScoreCard me={me} scoring onResult={toast.show} />
         <button type="button" className="add-task" onClick={() => toast.show(t('tasks.addLater'))}>
           {t('tasks.add')}

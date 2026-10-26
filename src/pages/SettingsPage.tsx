@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import PageHeader from '../shell/PageHeader'
 import Avatar from '../components/Avatar'
 import NotificationsCard from '../components/NotificationsCard'
+import WaterPauseCard from '../components/WaterPauseCard'
 import RulesCard from '../components/RulesCard'
 import SpinnerOptionsCard from '../components/SpinnerOptionsCard'
 import { useAuth } from '../auth/AuthProvider'
@@ -65,6 +66,7 @@ export default function SettingsPage() {
         </section>
 
         <NotificationsCard />
+        <WaterPauseCard />
         <RulesCard />
         <SpinnerOptionsCard />
       </div>

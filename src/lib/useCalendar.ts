@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from './supabase'
 
-export type DayResult = { day: string; yoyo_cups: number; yoyo_ok: boolean; kyle_ok: boolean }
+export type DayResult = { day: string; yoyo_cups: number; yoyo_ok: boolean; kyle_ok: boolean; water_paused: boolean }
 
 const pad = (n: number) => String(n).padStart(2, '0')
 export const ymd = (y: number, m: number, d: number) => `${y}-${pad(m + 1)}-${pad(d)}`
@@ -15,7 +15,7 @@ export function useMonthResults(year: number, month: number) {
     const last = new Date(year, month + 1, 0).getDate()
     supabase!
       .from('daily_results')
-      .select('day, yoyo_cups, yoyo_ok, kyle_ok')
+      .select('day, yoyo_cups, yoyo_ok, kyle_ok, water_paused')
       .gte('day', ymd(year, month, 1))
       .lte('day', ymd(year, month, last))
       .then(({ data }) => {

@@ -3,7 +3,7 @@ import { Toast, useToast } from '../components/Toast'
 import { useAuth } from '../auth/AuthProvider'
 import { useI18n } from '../i18n'
 import { useBalances } from '../lib/useBalances'
-import { CupsCard, ReviewList } from '../water/WaterParts'
+import { CupsCard, ReviewList, WaterGate } from '../water/WaterParts'
 import { ChoreCards, HandScoreCard } from '../components/KyleCards'
 
 export default function KylePage() {
@@ -24,8 +24,10 @@ export default function KylePage() {
       <div className="page-body">
         <Toast message={toast.message} />
         <ChoreCards me={me} onResult={toast.show} />
-        <CupsCard owner="kyle" me={me} title={t('water.myTitle')} />
-        <ReviewList owner="kyle" me={me} onResult={toast.show} />
+        <WaterGate>
+          <CupsCard owner="kyle" me={me} title={t('water.myTitle')} />
+          <ReviewList owner="kyle" me={me} onResult={toast.show} />
+        </WaterGate>
         <HandScoreCard me={me} scoring={false} onResult={toast.show} />
         <button type="button" className="add-task add-task--kyle" onClick={() => toast.show(t('tasks.addLater'))}>
           {t('tasks.add')}

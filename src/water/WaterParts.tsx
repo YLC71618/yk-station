@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
+import { Link } from 'react-router-dom'
 import { useI18n } from '../i18n'
 import type { Role } from '../lib/supabase'
 import { hhmm, isToday } from '../lib/time'
@@ -7,6 +8,22 @@ import { coins, water } from '../config/rules'
 import { useWaterContext } from './WaterProvider'
 import { BellIcon, CameraIcon, DropIcon } from '../components/icons'
 import './WaterParts.css'
+
+/** Water sections, or a short "paused" card while the water feature is switched off in Settings. */
+export function WaterGate({ children }: { children: ReactNode }) {
+  const { t } = useI18n()
+  const { paused } = useWaterContext()
+  if (!paused) return <>{children}</>
+  return (
+    <section className="card card--soft water-paused">
+      <h2 className="section-title">{t('water.paused.title')}</h2>
+      <p className="muted-small">{t('water.paused.hint')}</p>
+      <Link to="/settings#water" className="water-paused__link">
+        {t('water.paused.resume')}
+      </Link>
+    </section>
+  )
+}
 
 /** Goal drops: filled = approved, light = waiting for review. */
 export function Drops({ approved, pending }: { approved: number; pending: number }) {

@@ -9,7 +9,7 @@ import { daysLeft, useChores, useHands } from '../lib/useKyleStuff'
 import { water } from '../config/rules'
 import './CalendarPage.css'
 
-type Status = { yoyo: boolean; kyle: boolean; cups: number; live: boolean } | null
+type Status = { yoyo: boolean; kyle: boolean; cups: number; live: boolean; waterPaused: boolean } | null
 
 export default function CalendarPage() {
   const { t, lang } = useI18n()
@@ -21,7 +21,7 @@ export default function CalendarPage() {
   const results = useMonthResults(year, month)
 
   // Today isn't finished yet, so it's worked out live from the same rules.
-  const { count } = useWaterContext()
+  const { count, paused } = useWaterContext()
   const { chores } = useChores()
   const { scores } = useHands()
   const todayLive: Status = {
@@ -29,12 +29,13 @@ export default function CalendarPage() {
     yoyo: count('yoyo').approved >= water.dailyGoalYoyo,
     kyle: chores.every((c) => daysLeft(c) >= 0) && !scores.some((s) => s.delta < 0 && londonDay(s.created_at) === today),
     live: true,
+    waterPaused: paused,
   }
 
   const statusOf = (day: string): Status => {
     if (day === today) return todayLive
     const r: DayResult | undefined = results[day]
-    return r ? { yoyo: r.yoyo_ok, kyle: r.kyle_ok, cups: r.yoyo_cups, live: false } : null
+    return r ? { yoyo: r.yoyo_ok, kyle: r.kyle_ok, cups: r.yoyo_cups, live: false, waterPaused: r.water_paused } : null
   }
 
   // Week starts on Sunday in Taiwan, Monday in the UK.
@@ -99,7 +100,7 @@ export default function CalendarPage() {
                   <span className="cal__num">{d}</span>
                   {s && (
                     <span className="cal__dots">
-                      <span className={`cal__dot cal__dot--yoyo${s.yoyo ? ' is-ok' : ''}`} />
+                      <span className={`cal__dot cal__dot--yoyo${s.waterPaused ? ' is-paused' : s.yoyo ? ' is-ok' : ''}`} />
                       <span className={`cal__dot cal__dot--kyle${s.kyle ? ' is-ok' : ''}`} />
                     </span>
                   )}
@@ -128,7 +129,11 @@ export default function CalendarPage() {
               <li>
                 <span className="cal__dot cal__dot--yoyo is-ok" />
                 <span>{t('calendar.yoyoLine', { cups: sel.cups, goal: water.dailyGoalYoyo })}</span>
-                <strong className={sel.yoyo ? 'ok' : 'miss'}>{t(sel.yoyo ? 'calendar.done' : 'calendar.missed')}</strong>
+                {sel.waterPaused ? (
+                  <strong className="paused">{t('calendar.paused')}</strong>
+                ) : (
+                  <strong className={sel.yoyo ? 'ok' : 'miss'}>{t(sel.yoyo ? 'calendar.done' : 'calendar.missed')}</strong>
+                )}
               </li>
               <li>
                 <span className="cal__dot cal__dot--kyle is-ok" />

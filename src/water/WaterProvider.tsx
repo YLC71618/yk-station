@@ -35,14 +35,16 @@ export function WaterProvider({ children }: { children: ReactNode }) {
   // My latest cup today was sent back → must retake before doing anything else (not for optional extra cups).
   const mine = water.today.filter((l) => l.role === me)
   const extraCup = me === 'yoyo' && goalMet
-  const mustRetake = mine.length > 0 && mine[mine.length - 1].status === 'rejected' && !cameraOpen && !extraCup
+  const paused = water.paused
+  const mustRetake =
+    !paused && mine.length > 0 && mine[mine.length - 1].status === 'rejected' && !cameraOpen && !extraCup
   const reviewer = t(me === 'yoyo' ? 'role.kyle' : 'role.yoyo')
 
-  const showRequest = me === 'yoyo' && !!water.request && snoozedUntil <= now && !cameraOpen && !mustRetake
+  const showRequest = !paused && me === 'yoyo' && !!water.request && snoozedUntil <= now && !cameraOpen && !mustRetake
 
-  // App badge: cups waiting for my review + an open request for Yoyo (SPEC §7).
+  // App badge: cups waiting for my review + an open request for Yoyo (SPEC §7). Nothing while paused.
   const other = me === 'yoyo' ? 'kyle' : 'yoyo'
-  const badge = water.pendingFor(other).length + (me === 'yoyo' && water.request ? 1 : 0)
+  const badge = paused ? 0 : water.pendingFor(other).length + (me === 'yoyo' && water.request ? 1 : 0)
   useEffect(() => setBadge(badge), [badge])
 
   // Keep this phone's push subscription on the server.

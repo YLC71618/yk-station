@@ -162,3 +162,15 @@
 .cal-detail__list .miss {
   color: var(--yoyo);
 }
+
+/* Water paused that day: a grey dash instead of a pink dot. */
+.cal__dot--yoyo.is-paused {
+  border-color: var(--divider);
+  background: var(--divider);
+  border-radius: 2px;
+  height: 4px;
+}
+
+.cal-detail__list .paused {
+  color: var(--muted);
+}

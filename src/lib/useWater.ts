@@ -25,13 +25,15 @@ export function useWater() {
   const [logs, setLogs] = useState<WaterLog[]>([])
   const [request, setRequest] = useState<WaterRequest | null>(null)
   const [snoozesLeft, setSnoozesLeft] = useState(0)
+  /** Water feature switched off from Settings (no cards, no notifications, no penalties). */
+  const [paused, setPausedState] = useState(false)
 
   const load = useCallback(async () => {
     const db = supabase!
     // 36h window covers "today" in London from any time zone (filtered precisely below),
     // plus anything still waiting for review however old.
     const since = new Date(Date.now() - 36 * 3600_000).toISOString()
-    const [l, r, s] = await Promise.all([
+    const [l, r, s, p] = await Promise.all([
       db
         .from('water_logs')
         .select('id, role, status, full_path, empty_path, created_at')
@@ -39,10 +41,12 @@ export function useWater() {
         .order('created_at'),
       db.from('water_requests').select('id, created_at, snoozed_until, snoozes').is('resolved_at', null).order('created_at', { ascending: false }).limit(1),
       db.rpc('snoozes_left'),
+      db.from('app_config').select('value').eq('key', 'water_paused').maybeSingle(),
     ])
     if (l.data) setLogs(l.data as WaterLog[])
     setRequest((r.data?.[0] as WaterRequest) ?? null)
     if (typeof s.data === 'number') setSnoozesLeft(s.data)
+    setPausedState(p.data?.value === 'true')
   }, [])
 
   useEffect(() => {
@@ -121,7 +125,16 @@ export function useWater() {
     return data as { ok: boolean; error?: string }
   }, [load])
 
-  return { today, request, snoozesLeft, count, pendingFor, submit, review, requestWater, snooze, decline }
+  const setPaused = useCallback(
+    async (value: boolean) => {
+      const { error } = await supabase!.rpc('set_water_paused', { p_paused: value })
+      if (error) throw error
+      await load()
+    },
+    [load],
+  )
+
+  return { today, request, snoozesLeft, paused, setPaused, count, pendingFor, submit, review, requestWater, snooze, decline }
 }
 
 /** Signed URLs for private photos (1 hour). */
